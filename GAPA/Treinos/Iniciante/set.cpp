@@ -11,6 +11,8 @@
 
 using namespace std;
 
+//
+
 int x, n;
 set<int , greater<int> > cj;//crescente
 
