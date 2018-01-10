@@ -5,7 +5,7 @@
 
 using namespace std;
 
-/*algoritmo de Kruskal para o problema da floresta geradora mínima*/
+/*algoritmo de Kruskal para o problema da floresta geradora mínima */
 
 struct Aresta{
     int u, v, w;
