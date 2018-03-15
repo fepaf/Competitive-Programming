@@ -5,10 +5,8 @@
 using namespace std;
 
 /*
-soma N números e mostra o resultado do resto por M;
-
-1 <= N <= 10**6
-1 <= A[i] <= 10**18
+Lê um número N e imprime o módulo dele por M
+1 <= N <= 10**1000
 1 <= M <= 10**9
 */
 

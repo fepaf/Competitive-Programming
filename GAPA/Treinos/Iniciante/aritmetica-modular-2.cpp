@@ -13,7 +13,6 @@ soma N números e mostra o resultado do resto por M;
 */
 
 
-
 int n, m, a[MAX];
 long long sum;
 
