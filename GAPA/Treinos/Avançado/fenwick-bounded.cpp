@@ -11,24 +11,25 @@
 using namespace std;
 
 vi ft;
+int n;
 
-i64 update(int idx, i64 val){//soma VAL na posiçãi IDX do array A
+i64 update(int idx, i64 val){
     while (idx<=n){
         ft[idx] += val;
-        idx += lsb(idx)
+        idx += lsb(idx);
     }
 }
 
 i64 query(int idx){//
     i64 ans = 0LL;
-    while (idx>=0){
+    while (idx>=1){
         ans += ft[idx];
         idx -= lsb(idx);
     }
     return ans;
 }
 
-int msb_cnt(i64 val){
+int msb_cnt(i64 val){//conta quantos bits significativos VAL possui
     int ans = 0;
     while (val){
         val >>= 1;
@@ -37,12 +38,11 @@ int msb_cnt(i64 val){
     return ans;
 }
 
-int bound(i64 x){
+int bound(i64 x){//retorna o maior RES tal que query(RES)<=X
     i64 res = 0LL;
-    int tam = msb_cnt(n)-1;
-    for (int k = tam; k>=0 ; --k){
-        i64 p = res + (1LL<<k) - 1;
-        if (p < n && ft[p] <= x){
+    for (int k = msb_cnt(n); k--; ){
+        i64 p = res + (1LL<<k);
+        if (p <= n && ft[p] < x){
             x -= ft[p];
             res += (1LL<<k);
         }
@@ -55,11 +55,11 @@ void showFT(){
     for (int i=1; i<=n; ++i){
         cout << query(i)-query(i-1) << " ";
     }
-    cout << "----" << endl;
+    cout << endl << "----" << endl;
 }
 
 vi a;
-i64 n, v, i;
+i64 v, i, cmd;
 
 int main(){_
     while (cin >> n){
@@ -81,7 +81,7 @@ int main(){_
             }
             else if (cmd == 3){
                 cin >> v;
-                cout << bound(v) << endl;
+                cout << v << ":" << bound(v) << endl;
                 showFT();
             }
         }

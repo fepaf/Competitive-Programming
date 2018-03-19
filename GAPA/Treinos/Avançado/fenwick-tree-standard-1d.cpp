@@ -57,11 +57,6 @@ int main(){_
                 cin >> i >> v;
                 update(i, v);
                 a[i] += v;
-
-                for (int i=1; i<=n; ++i){
-                    cout << i << ":" << query(i) << " ";
-                }
-                cout << endl;
             }
             else if (cmd == "Q"){
                 cin >> i;
