@@ -45,7 +45,7 @@ int main(){_
         ft = vi(n+1,0);
         a = vi(n+1);
 
-        for (int i=1; i<=n; ++i){
+        for (i=1; i<=n; ++i){
             cin >> a[i];
             update(i, a[i]);
         }
