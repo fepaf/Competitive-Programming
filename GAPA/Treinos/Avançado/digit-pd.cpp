@@ -27,20 +27,8 @@ vi getDigit(i64 x){
     return digitos;
 }
 
-i64 toral(i64 x){
-    i64 a = 0LL;
-    for (i64 i=x+1; i--;){
-        int check = 1;
-        vi digitos = getDigit(i);
-        for (auto ch : digitos){
-            check &= (c[ch]=='S');
-        }
-        a += check;
-    }
-    return a;
-}
 
-i64 solve(int idx, int restrito, int sum){
+i64 solve(int idx, int rest4rito, int sum){
     if (idx==-1) return sum;
 
     if (~dp[idx][restrito][sum]) return dp[idx][restrito][sum];
