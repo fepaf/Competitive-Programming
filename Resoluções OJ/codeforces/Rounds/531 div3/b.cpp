@@ -25,14 +25,13 @@ int main(){_
 
         for (int i=0; i<n; ++i){
             cin >> a[i];
-            // cj.insert(a[i]);
             ok &= ((++f[a[i]]) <= k);
         }
 
-        //ok &= ((int)(cj.size()) >= k);
 
+
+        f.clear();
         if (ok){
-            f.clear();
             cout << "YES" << endl;
             int cod = 0;
             for (int i=0; i<n; ++i){
