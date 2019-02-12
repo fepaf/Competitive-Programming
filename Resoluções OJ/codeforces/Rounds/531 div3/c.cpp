@@ -18,10 +18,12 @@ int n,x,y,menores,b;
 int main(){_
     while (cin >> n >> x >> y){
         menores = 0;
+
         for (int i=n; i--;){
             cin >> b;
             menores += (b<=x);
         }
+        
         if (x>y){
             cout << n << endl;
         }
