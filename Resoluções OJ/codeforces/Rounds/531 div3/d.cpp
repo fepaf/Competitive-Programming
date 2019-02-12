@@ -41,7 +41,6 @@ int main(){_
                 ++f[1];
             }
         }
-        // cout << "for 1" << endl;
 
         for (int i =0, j = pos[1].size()-1; f[1]>n;){
             if (f[0] < n){
@@ -57,7 +56,6 @@ int main(){_
                 --j;
             }
         }
-        // cout << "for 2" << endl;
 
 
         for (int i = pos[0].size()-1; f[0]>n; i--){
