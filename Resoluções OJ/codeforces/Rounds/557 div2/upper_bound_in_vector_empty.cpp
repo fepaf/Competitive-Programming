@@ -17,6 +17,16 @@ vi a;
 string op;
 int x;
 
+int find(vi a, int x){
+	int lo = 0, hi = sz(a);
+	while (lo < hi){
+		int mid = lo + (hi-lo)/2;
+		if (a[mid]>x) hi = mid;
+		else lo = mid+1;
+	}
+	return lo;
+}
+
 int main(){_
 	cout << "comecou " << endl;
 	while (1){
@@ -26,9 +36,13 @@ int main(){_
 			a.eb(x);
 			sort(all(a));
 		}
-		else if (op == "find"){
+		else if (op == "upper"){
 			cin >> x;
 			cout << (upper_bound(all(a) , x)-a.begin()) << endl;
+		}
+		else if (op == "bb"){
+			cin >> x;
+			cout << find(a,x) << endl;
 		}
 	}
 	return 0;
