@@ -7,7 +7,7 @@
 
 using namespace std;
 
-i64 memo[MAXR][MAXR][MAXK], s[MAXK];
+i64 memo[MAXR][MAXR][MAXK];
 
 i64 r, k;
 
