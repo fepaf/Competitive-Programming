@@ -25,7 +25,7 @@ int existe(int x){
     while (base[lsb(x)]){
         x ^= base[lsb(x)];
     }
-    base.erase(base[lsb(x)]);
+    base.erase(lsb(x));
     return (x==0);
 }
 
@@ -39,7 +39,7 @@ int main(){_
         }
         rnk = base.size()-1;
 
-        cout<<(rnk>k ? "SIM" : "NAO")<<endl;
+        cout<<(rnk>=k ? "SIM" : "NAO")<<endl;
 
         base.clear();
     }
