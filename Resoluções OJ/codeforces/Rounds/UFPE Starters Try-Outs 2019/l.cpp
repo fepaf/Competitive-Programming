@@ -14,21 +14,21 @@
 #define vii vector<ii>
 #define vvii vector<vii>
 #define lsb(x) ((x) & (-x))
-
+ 
 using namespace std;
-
+ 
 struct tlanche{
 	int v,w,e;
 };
-
+ 
 int cmp(tlanche a, tlanche b){
 	return a.e > b.e;
 }
-
+ 
 tlanche lanches[MAX];
 int n, q, t, k;
-i64 dp[MAX][MAX];
-
+int dp[MAX][MAX];
+ 
 int main(){_
 	while (cin >> n >> q){
 		for (int i=1; i<=n; ++i){
@@ -43,8 +43,7 @@ int main(){_
 		
 		for (int i=1; i<=n; ++i){
 			dp[i][0] = 0;
-			cout << lanches[i].e << " " << lanches[i].w << " " << lanches[i].v << endl;
-			for (int j=1; j<=10000; ++j){
+			for (int j=0; j<=10000; ++j){
 				if (j >= lanches[i].w){
 					dp[i][j] = max(dp[i-1][j-lanches[i].w] + lanches[i].v, dp[i-1][j]);
 				}
@@ -56,15 +55,15 @@ int main(){_
 		
 		while (q--){
 			cin >> t >> k;
-
-			int lo = 1, hi = n;
+ 
+			int lo = 1, hi = n+1;
 			while (lo < hi){
 				int mid = lo + (hi - lo)/2;
-				if (t > lanches[mid].e) hi = mid;
+				if (t >= lanches[mid].e) hi = mid;
 				else lo = mid + 1;
 			}
 			
-			cout << dp[lo][k] << endl;
+			cout << dp[lo-1][k] << endl;
 		}
 		
 	}
