@@ -15,6 +15,7 @@
 #define vii vector<ii>
 #define vvii vector<vii>
 #define lsb(x) ((x) & (-x))
+#define gcd(x,y) __gcd((x),(y))
 
 using namespace std;
 
