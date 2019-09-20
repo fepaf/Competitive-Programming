@@ -19,7 +19,7 @@
 
 using namespace std;
 
-int n, m[MAX][MAX], a[MAX];
+i64 n, m[MAX][MAX], a[MAX];
 
 int main(){_
 	while (cin >> n){
@@ -29,22 +29,14 @@ int main(){_
 		for (int i=0; i<n; ++i){
 			for (int j=0; j<n; ++j){
 				cin >> m[i][j];
-				if (i!=j){
-					a[i] = gcd(a[i],m[i][j]);
-					a[j] = gcd(a[j],m[i][j]);
-				}
 			}
 		}
-
-		for (int i=0; i<n; ++i){
-			for (int j=0; j<n; ++j){
-				cout << (i!=j ? (a[i]*a[j])/m[i][j] : 0) << ' ';
-			}
-			cout << endl;
+		a[0] = sqrt((m[0][1]*m[0][2])/m[1][2]); 
+		cout << a[0];
+		for (int i=1; i<n; ++i){
+			a[i] = m[i][i-1]/a[i-1];
+			cout << ' ' << a[i];
 		}
-		for (int i=0; i<n; ++i){
-		}
-
 
 		cout << endl;
 	}
