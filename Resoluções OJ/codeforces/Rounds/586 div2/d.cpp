@@ -19,34 +19,26 @@
 
 using namespace std;
 
-i64 n, b[MAX];
+i64 n, b[MAX], maior;
+map<i64, i64> bucket;
 
 int main(){_
 	while (cin >> n){
-		vi odd, even;
+		maior = 0;
 		for (int i=0; i<n; ++i){
 			cin >> b[i];
-			if (b[i]&1LL){
-				odd.eb(b[i]);
-			}
-			else{
-				even.eb(b[i]);
+			if ((++bucket[lsb(b[i])]) > bucket[maior]){
+				maior = lsb(b[i]);
 			}
 		}
-		if (sz(odd) < sz(even)){
-			cout << sz(odd) << endl;
-			for (auto x : odd){
-				cout << x << ' ';
+		cout << (n-bucket[maior]) << endl;
+		for (int i=0; i<n; ++i){
+			if (lsb(b[i]) != maior){
+				cout << b[i] << ' ';
 			}
-			cout << endl;
 		}
-		else {
-			cout << sz(even) << endl;
-			for (auto x : even){
-				cout << x << ' ';
-			}
-			cout << endl;
-		}
+		cout << endl;
+		bucket.clear();
 	}
 	return 0;
 }
