@@ -20,10 +20,20 @@
 using namespace std;
 
 string s;
+set<char> cj;
 
 int main(){_
 	while (cin >> s){
-		
+		for (char c : s){
+			if (sz(cj) && *cj.begin() < c){
+				cout << "Ann" << endl;
+			}
+			else {
+				cout << "Mike" << endl;
+			}
+			cj.insert(c);	
+		}
+		cj.clear();
 	}
 	return 0;
 }
