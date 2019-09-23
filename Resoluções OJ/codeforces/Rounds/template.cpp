@@ -16,6 +16,8 @@
 #define vvii vector<vii>
 #define lsb(x) ((x) & (-x))
 #define gcd(x,y) __gcd((x),(y))
+#define rep(i,a,b) for (int (i)=(a); (i)<(b); ++(i))
+#define repi(i,a,b) for (int (i)=(a); (i)>(b); --(i))
 
 using namespace std;
 
