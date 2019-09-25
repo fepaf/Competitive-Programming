@@ -21,15 +21,18 @@
 
 using namespace std;
 
- i64 dp[MAX];
-int n, k, prox;
+i64 dp[MAX];
+int n, k, prox[MAX];
 string s;
 
 
 int main(){_
 	while (cin >> n >> k >> s){
 		memset(dp, 0x7f, sizeof(dp));
-		int atual = INF;
+		int atual = 2*n;
+		rep(i,0,n-1){
+			prox[i] = INF;
+		}
 		repi(i,n-1,-k-1){
 			if (i>=0 && s[i]=='1'){
 				atual = i;
@@ -41,9 +44,10 @@ int main(){_
 		dp[n] = 0LL;
 		repi(i,n-1,-1){
 			if (prox[i]-i <= k){
-				int y = 
+				int y = max(0,prox[i]-k);
+				dp[y] = min(dp[y], dp[i+1] + prox[i] + 1);
 			}
-			dp[i] = min(dp[i], dp[i+1] + i);
+			dp[i] = min(dp[i], dp[i+1] + i+1);
 		}
 		cout << dp[0] << endl;
 	}
