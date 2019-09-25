@@ -2,7 +2,7 @@
 #define _ ios_base::sync_with_stdio(0);
 #define endl '\n'
 #define INF 0x3f3f3f3f
-#define MAX (1<<20)
+#define MAX (1<<15)
 #define i64 long long
 #define all(x) (x).begin() , (x).end()
 #define sz(x) (int)(x).size()
@@ -20,28 +20,27 @@
 
 using namespace std;
 
-i64 nivel[1<<6], n, q, k, x, pot10[20];
+i64 ssdig[MAX], sdig[MAX], n, q, k, x, b, l;
 
 int main(){_
-	pot10[0] = 1;
-	rep (i,1,18){
-		nivel[i] = nivel[i-1]+9*i*pot10[i-1];
-		pot10[i] = pot10[i-1]*10;
+	sdig[0] = ssdig[0] = 0;
+	rep(i,1,MAX){
+		sdig[i] = sdig[i-1] + ((int)log10(i)) + 1;
+		ssdig[i] = sdig[i] + ssdig[i-1];
+//		if (i<=110) cout << i << ' ' <<  log10(i) << ' ' << sdig[i] << ' ' << ssdig[i] << endl;
 	}
 	while (cin >> q){
 		while (q--){
 			cin >> k;
-			i64 l = (upper_bound(nivel, nivel+17, k) - nivel);
-			i64 d = k - nivel[l-1];
-			n = d/l + pot10[l-1] - 1;
-			i64 r = d%l;
-			if (r){
-				n++;
-				rep(i,0,l-r){
-					n /= 10;
-				}
+			b = lower_bound(ssdig, ssdig + MAX, k) - ssdig;
+			k -= ssdig[b-1];
+			l = lower_bound(sdig, sdig + MAX, k) - sdig;
+			k -= sdig[l-1];
+			int t = log10(l)+1;
+			rep(i,0,t-k){
+				l /= 10;
 			}
-			cout << (n%10) << endl;
+			cout << (l%10) << endl;
 		}
 		cout << endl;
 	}
