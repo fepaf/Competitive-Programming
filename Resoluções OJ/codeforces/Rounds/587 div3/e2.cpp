@@ -24,10 +24,9 @@ i64 pot10[1<<5], n, q, k, x, b, l, t;
 
 i64 sumto(i64 n, int op){
 	i64 sum = 0LL;
-	for (i64 idx = 0; n >=  pot10[idx]-1; ++idx){
+	for (i64 idx = 0; n >=  pot10[idx]; ++idx){
 		i64 digs = (n - (pot10[idx] - 1));
 		sum += (op ? (digs*(digs+1))/2 : digs);
-		if (sum > 1e18) return 1e18;
 	}
 	return sum;
 }
@@ -41,7 +40,7 @@ int main(){_
 		while (q--){
 			cin >> k;
 			
-			i64 lo = 1LL, hi = 1e9;
+			i64 lo = 1LL, hi = 5e8;
 			while (lo < hi){
 				i64 mid = lo + (hi - lo)/2;
 				if (sumto(mid, 1) >= k) hi = mid;
@@ -50,7 +49,7 @@ int main(){_
 			k -= sumto(lo-1, 1);
 
 			b = lo;
-			lo = 0LL, hi = b;
+			lo = 1LL, hi = b;
 			while (lo < hi){
 				i64 mid = lo + (hi - lo)/2;
 				if (sumto(mid, 0) >= k) hi = mid;
@@ -59,14 +58,13 @@ int main(){_
 			k -= sumto(lo-1, 0);
 			
 			n = lo;
+			
 			t = log10(n)+1;
-
-			rep(i,1,k-t){
+			rep(i,1,t-k){
 				n /= 10;
 			}
 
 			cout << (n%10) << endl;
-
 		}
 		cout << endl;
 	}
