@@ -123,7 +123,7 @@ int main(){_
 
 	sort(a, a+m, cmp);
 
-	for (int i=0, j=1; i<n && j<m; ++i){
+	for (int i=0, j=1; i<m && j<n; ++i){
 		u = id(a[i].u);
 		v = id(a[i].v);
 
