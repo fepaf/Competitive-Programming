@@ -8,7 +8,7 @@
 #define _ ios_base::sync_with_stdio(0);
 #define endl '\n'
 #define INF 0x3f3f3f3f
-#define MAX (1<<20)
+#define MAX (1<<17)
 #define i64 long long
 #define all(x) (x).begin() , (x).end()
 #define sz(x) (int)(x).size()
@@ -30,8 +30,8 @@ using namespace std;
 int n, r, l;
 int u, v, w;
 int timer;
-vvi up, mup;
-vi tin, tout;
+int up[MAX][18], mup[MAX][17];
+int tin[MAX], tout[MAX];
 
 struct aresta{
 	int u, v, w;
@@ -40,13 +40,13 @@ aresta a[MAX];
 
 int pai[MAX];
 
-vvii adj;
+vii adj[MAX];
 
 void init(int n){
 	rep(i, 0, n) pai[i] = i;
 }
 
-int id(int u){return (pai[u] == u? pai[u] : (pai[u] = id(pai[u])));}
+int id(int n){return pai[n] == n? pai[n] : (pai[n] = id(pai[n]));}
 
 void join(int u, int v){
 	u = id(u), v = id(v);
@@ -92,7 +92,6 @@ int lca(int u, int v){
 
 int sobe(int u, int v){
 	int maior = -INF; 
-	
 	repi(i, l, 0){
 		if (!is_anc(up[u][i], v)){
 			maior = max(maior, mup[u][i]);
@@ -103,13 +102,14 @@ int sobe(int u, int v){
 }
  
 int get_max(int u, int v){
-	if (u == v) return 0;// importante
+	if (u == v) return 0;
  
 	if (is_anc(u, v)) return sobe(v, u);
 	
 	if (is_anc(v, u)) return sobe(u, v);
 	
-	return max(sobe(u, lca(u,v)), sobe(v, lca(u,v)));
+	int LCA = lca(u, v);
+	return max(sobe(u, LCA), sobe(v, LCA));
 }
  
 int mst;
@@ -119,6 +119,7 @@ int cmp(aresta a, aresta b){
 }
 
 map<ii, int> peso;
+int q, maior;
 
 int main(){_
 	cin >> n >> r;
@@ -130,13 +131,13 @@ int main(){_
 		--u, --v;
 		a[i] = {u, v, w};
 		peso[ii(u, v)] = w;
-		peso[ii(v, u)] = w;
 	}
 
 	sort(a, a+r, cmp);
+
 	
 	mst = 0;
-	adj = vvii(n);
+
 	for (int i=0, j=1; i<r && j<n; ++i){
 		u = id(a[i].u);
 		v = id(a[i].v);
@@ -144,6 +145,7 @@ int main(){_
 		
 		if (u != v){
 			mst += w;
+			join(u, v);
 			++j;
 			
 			u = a[i].u;
@@ -155,21 +157,14 @@ int main(){_
 	}
 
 	l = ceil(log2(n));
-	up.assign(n, vi(l+1));
-	mup.assign(n, vi(l+1));
-	tin = vi(n);
-	tout = vi(n);
 	timer = 0;
 
 	dfs(0, 0, -INF);
 	
-	cout << "mst: " << mst << endl;
-	int q;
 	for (cin >> q; q--;){
 		cin >> u >> v;
 		--u, --v;
-		int maior = get_max(u, v);
-		cout << "maior " << maior << endl;
+		maior = get_max(u, v);
 		cout << (mst + max(maior, peso[ii(u,v)]) - maior) << endl;
 	}
 
