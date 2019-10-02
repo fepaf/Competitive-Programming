@@ -122,12 +122,12 @@ map<ii, int> peso;
 int q, maior;
 
 int main(){_
-	cin >> n >> r;
-	
+	scanf("%i %i", &n, &r);
+
 	init(n);
 
 	rep(i, 0, r-1){
-		cin >> u >> v >> w;
+		scanf("%i %i %i", &u, &v, &w);
 		--u, --v;
 		a[i] = {u, v, w};
 		peso[ii(u, v)] = w;
@@ -147,7 +147,6 @@ int main(){_
 			mst += w;
 			join(u, v);
 			++j;
-			
 			u = a[i].u;
 			v = a[i].v;
 			
@@ -161,11 +160,11 @@ int main(){_
 
 	dfs(0, 0, -INF);
 	
-	for (cin >> q; q--;){
-		cin >> u >> v;
+	for (scanf("%i", &q); q--;){
+		scanf("%i %i",&u, &v);
 		--u, --v;
 		maior = get_max(u, v);
-		cout << (mst + max(maior, peso[ii(u,v)]) - maior) << endl;
+		printf("%i\n",(mst + max(maior, peso[ii(u,v)]) - maior));
 	}
 
 	return 0;
