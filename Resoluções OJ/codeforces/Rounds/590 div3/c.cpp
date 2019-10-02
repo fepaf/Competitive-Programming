@@ -22,7 +22,7 @@
 using namespace std;
 
 int n, q;
-int tub[3][1<<19];
+int tub[2][1<<19];
 char c;
 
 int dentro(int i, int j){return 0<=i && i<=1 && 0<=j && j <=n-1;}
@@ -34,13 +34,11 @@ int main(){_
 			rep(j,0,n-1){
 				cin >> c;
 				tub[i][j] = (c > '2');
-				cout<<tub[i][j];
 			}
-			cout<<endl;
 		}
 		
 		int i=0, j=0, jant=-1, esq;
-		while (i!=1 && j!=n && dentro(i,j)){
+		while ((i!=1 || j!=n) && dentro(i, j)){
 			esq = j - jant;
 			jant = j;
 			if (tub[i][j]){
@@ -53,7 +51,6 @@ int main(){_
 			}
 		}
 		
-		cout << i << " " << j << endl;
 		cout << (i==1 && j==n ? "YES" : "NO") << endl;
 	}
 	return 0;
