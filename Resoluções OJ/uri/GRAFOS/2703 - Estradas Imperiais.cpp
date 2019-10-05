@@ -163,8 +163,7 @@ int main(){_
 	for (scanf("%i", &q); q--;){
 		scanf("%i %i",&u, &v);
 		--u, --v;
-		maior = get_max(u, v);
-		printf("%i\n",(mst + max(maior, peso[ii(u,v)]) - maior));
+		printf("%i\n",(mst + peso[ii(u,v)] - get_max(u, v)));
 	}
 
 	return 0;
