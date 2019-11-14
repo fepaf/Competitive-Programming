@@ -21,29 +21,30 @@
 
 using namespace std;
 
-i64 n, m, mat[MAX][MAX], hor, vert;
+i64 ans, sl[MAX], sc[MAX];
+int n, m, a;
 
 signed main(){_
 	cin >> n >> m;
 	for (i64 i=0; i<n; ++i){
 		for (i64 j=0; j<m; ++j){
-			cin >> mat[i][j];
-			mat[j][n] = -1;
-		}
-		mat[i][m] = -1;
-	}
-	for (i64 i=0; i<=n; ++i){
-		hor = 1;
-		for (i64 j=0; j<=m; ++j){
-			if (mat[i][j] == mat[i][(j-1+m)%m]){
-				++hor;
-			}
-			else {
-				hor = 1;
-				ans += (hor * (hor+1))/2;
-			}
+			cin >> a;
+			sl[i] += a;
+			sc[j] += a;
 		}
 	}
+
+	for (int i=n; i--;){
+		ans += (1LL << sl[i])-1;
+		ans += (1LL << (m - sl[i]))-1;
+	}
+	
+	for (int i=m; i--;){
+		ans += (1LL << sc[i])-1;
+		ans += (1LL << (m - sl[i]))-1;
+	}
+
+	ans -= m*m;
 	cout << ans << endl;
 	return 0;
 }
