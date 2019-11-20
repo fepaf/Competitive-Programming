@@ -2,7 +2,7 @@
 #define _ ios_base::sync_with_stdio(0);
 #define endl '\n'
 #define INF 0x3f3f3f3f
-#define MAX (1<<10)
+#define MAX (1<<20)
 #define i64 long long
 #define all(x) (x).begin() , (x).end()
 #define sz(x) (int)(x).size()
@@ -21,32 +21,27 @@
 
 using namespace std;
 
-int n, l;
-int a[MAX];
-double lo, hi, mid;
-int ok;
+int n, a[MAX], t, ans, s[MAX];
+int lo, mid, hi, ok;
 
 int main(){_
-    scanf("%i %i",&n, &l);
-	for (int i=1; i<=n; ++i){
-        scanf("%i",&a[i]);
-	}
-	a[0] = 0;
-	a[n+1] = l;
-	sort(a+1, a+n+1);
+    cin >> n >> t;
+    for (int i=1; i<=n; ++i){
+        cin >> a[i];
+        s[i] = s[i-1] + a[i];
+    }
+    lo = 0, hi = n+1;
+    while (lo < hi){
+        mid = lo + (hi - lo)/2;
 
-	lo = max(a[1], l-a[n]), hi = l, mid;
-	for (int j=1000; j--;){
-		mid = (lo + hi)/2;
+        ok = 1;
+        for (int i=mid; i<=n; ++i){
+            ok &= (s[i] - s[i-mid] > t);
+        }
 
-		ok = 1;
-		for (int i=1; i<=n; ++i){
-			ok &= ((a[i] + 2*mid) >= a[i+1]);
-		}
-
-		if (ok) hi = mid;
-		else lo = mid;
-	}
-    printf("%.10lf\n", lo);
+        if (ok) hi = mid;
+        else lo = mid + 1;
+    }
+    cout << lo-1 << endl;
 	return 0;
 }
