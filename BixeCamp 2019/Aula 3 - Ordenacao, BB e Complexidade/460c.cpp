@@ -21,8 +21,13 @@
 
 using namespace std;
 
-
+int n, w, m;
+int a[MAX];
 
 int main(){_
+    cin >> n >> m >> w;
+    for (int i=1; i<=n; ++i){
+        cin >> a[i];
+    }
 	return 0;
 }
