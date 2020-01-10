@@ -23,31 +23,19 @@ using namespace std;
 
 i64 x;
 i64 menor, a, b, par;
-vector<i64> dvo;
 
 int main(){_
     cin >> x;
+    menor = x;
     for (i64 a=1; a*a<=x; ++a){
         if (x%a==0){
             b = x/a;
-            dvo.eb(a);
-            dvo.eb(b);
-        }
-    }
-    
-        int t = sz(dvo);
-        menor = x;
-        for (int i=0; i<t; ++i){
-            for (int j=i+1; j<t; ++j){
-                i64 a = dvo[i];
-                i64 b = dvo[j];
-                if ((a/gcd(a,b))*b == x){
-                    menor = min(menor, max(a,b));
-                    par = min(a,b);
-                }
+            if ((a/gcd(a,b))*b==x){
+                menor = min(menor, max(a,b));
+                par = min(a,b);
             }
         }
-        cout << par << ' ' << menor << endl;
+    }
+    cout << menor << ' ' << par << endl;
 	return 0;
 }
-        int t = sz(dvo);
