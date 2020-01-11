@@ -14,52 +14,64 @@
 
 using namespace std;
 
-string s;
+string s[MAX];
 int n;
 int ans;
 
 struct no{
-    unordered_map<char,int> nxt;
-    int fim;
+    int nxt[26];
+    int fim, filhos;
     no (){
         fim = 0;
+        filhos = 0;
+        for (int i=26; i--;) nxt[i]=0;
     }
 };
 
 vector<no> trie;
 
-void insert(string s){
-    int ptr = 0;
+int insert(string s){
+    int ptr = 0, ans = 0;
     for (char c : s){
-        if (trie[ptr].nxt.find(c) == trie[ptr].nxt.end()){
+        c -= 'a';
+        if (trie[ptr].nxt[c] == 0){
             ptr = trie[ptr].nxt[c] = sz(trie);
             trie.eb(no());
         }
         else{
             ptr = trie[ptr].nxt[c];
-            ans &= (!trie[ptr].fim);
         }
     }
     ++trie[ptr].fim;
+    return (ans == 1);
 }
 
-void dfs(int u, int p, int l, char c){
-    cout << c << ' ' << l << endl;
-    for (auto x : trie[u].nxt){
-        if (x.sc != p){
-            dfs(x.sc, u, l+1, x.fs);
+int dfs(int u, int p){
+    int ans = 0;
+    int v;
+    for (int i=26; i--;){
+        v = trie[u].nxt[i];
+        if (v != p && v){
+            ans = max (dfs(v, u),ans);
         }
     }
+    return ans+trie[u].fim;
 }
 
 int main(){
     while ((cin >> n) && n){
         trie.eb(no());
+        cin.ignore();
         for (int i=0; i<n; ++i){
-            cin >> s;
-            insert(s);
+            getline(cin, s[i]);
         }
-        dfs(0,-1,0,'*');
+        sort(s,s+n);
+        ans = 1;
+        for (int i=0; i<n; ++i){
+            insert(s[i]);
+        }
+    //    ans = dfs(0,-1);
+        cout << "Conjunto " << (ans==1 ? "Bom" : "Ruim") << endl;
         trie.clear();
     }
     return 0;
