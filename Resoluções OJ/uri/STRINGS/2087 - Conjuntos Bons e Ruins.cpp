@@ -19,34 +19,33 @@ int n;
 int ans;
 
 struct no{
-    no *g[26];
-    int end;
+    int g[26];
+    int end = 0;
     no (){
-        for (int i=26; i--;) g[i] = NULL;
+        for (int i=26; i--;) g[i] = 0;
         end = 0;
     }
 };
 
-no *root;
+vector <no> trie;
 
-int insert(string s){
-    no *u = root;
+void insert(string s){
+    int u = 0;
     for (char c : s){
         c -= 'a';
-        if (u->g[c] == NULL){
-            u->g[c] = new no();
+        if (!trie[u].g[c]){
+           trie[u].g[c] = sz(trie);
+           trie.eb(no());
         }
-        if (u->g[c]->end){
-            ans = 0;
-        }
-        u = u->g[c];
+        u = trie[u].g[c];
+        ans &= (!trie[u].end); 
     }
-    u->end = 1;
+    trie[u].end = 1;
 }
 
 int main(){
     while ((cin >> n) && n){
-        root = new no();
+        trie.eb(no());
         for (int i=0; i<n; ++i){
             cin >> s[i];
         }
@@ -57,6 +56,7 @@ int main(){
             insert(s[i]);
         }
         cout << "Conjunto " << (ans==1 ? "Bom" : "Ruim") << endl;
+        trie.clear();
     }
     return 0;
 }
