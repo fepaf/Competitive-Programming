@@ -24,14 +24,54 @@ using namespace std;
 int n, x;
 int a[MAX];
 
+struct no{
+    int nxt[2];
+    no (){
+        nxt[0] = nxt[1] = 0;
+    }
+};
+
+vector <no> trie;
+
+void insere(int x){
+    int bit[30];
+    for (int i=30; i--;){
+        bit[29-i] = ((x>>i) & 1);
+    }
+    int u = 0;
+    for (int i=0; i<30; ++i){
+        if (trie[u].nxt[bit[i]] == 0){
+            u = trie[u].nxt[bit[i]] = sz(trie);
+            trie.eb(no());
+        }
+        else {
+            u = trie[u].nxt[bit[i]];
+        }
+    }
+}
+
+int f(int u, int l){
+    int esq = trie[u].nxt[0];
+    int dir = trie[u].nxt[1];
+    if (esq && dir){
+        return ((1<<l) | min(f(esq,l-1), f(dir,l-1)));
+    }
+    else if (esq){
+        return f(esq, l-1);
+    }
+    else if (dir){
+        return f(dir, l-1);
+    }
+    return 0;
+}
+
 int main(){_
     cin >> n;
+    trie.eb(no());
     for (int i=0; i<n; ++i){
         cin >> a[i];
+        insere(a[i]);
     }
-    sort(a, a+n);
-    for (int i=0; i<30; ++i){
-        
-    }
+    cout << f(0, 29) << endl;
 	return 0;
 }

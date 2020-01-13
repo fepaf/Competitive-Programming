@@ -19,60 +19,44 @@ int n;
 int ans;
 
 struct no{
-    int nxt[26];
-    int fim, filhos;
+    no *g[26];
+    int end;
     no (){
-        fim = 0;
-        filhos = 0;
-        for (int i=26; i--;) nxt[i]=0;
+        for (int i=26; i--;) g[i] = NULL;
+        end = 0;
     }
 };
 
-vector<no> trie;
+no *root;
 
 int insert(string s){
-    int ptr = 0, ans = 0;
+    no *u = root;
     for (char c : s){
         c -= 'a';
-        if (trie[ptr].nxt[c] == 0){
-            ptr = trie[ptr].nxt[c] = sz(trie);
-            trie.eb(no());
+        if (u->g[c] == NULL){
+            u->g[c] = new no();
         }
-        else{
-            ptr = trie[ptr].nxt[c];
+        if (u->g[c]->end){
+            ans = 0;
         }
+        u = u->g[c];
     }
-    ++trie[ptr].fim;
-    return (ans == 1);
-}
-
-int dfs(int u, int p){
-    int ans = 0;
-    int v;
-    for (int i=26; i--;){
-        v = trie[u].nxt[i];
-        if (v != p && v){
-            ans = max (dfs(v, u),ans);
-        }
-    }
-    return ans+trie[u].fim;
+    u->end = 1;
 }
 
 int main(){
     while ((cin >> n) && n){
-        trie.eb(no());
-        cin.ignore();
+        root = new no();
         for (int i=0; i<n; ++i){
-            getline(cin, s[i]);
+            cin >> s[i];
         }
         sort(s,s+n);
         ans = 1;
         for (int i=0; i<n; ++i){
+            if (!ans) break;
             insert(s[i]);
         }
-    //    ans = dfs(0,-1);
         cout << "Conjunto " << (ans==1 ? "Bom" : "Ruim") << endl;
-        trie.clear();
     }
     return 0;
 }
