@@ -10,7 +10,7 @@
 #define fs first
 #define sc second
 #define eb emplace_back
-#define vi vector<int>
+#define vi vector<i64>
 #define vvi vector<vi>
 #define vii vector<ii>
 #define vvii vector<vii>
@@ -21,22 +21,38 @@ using namespace std;
 
 i64 n;
 vi a;
-map<i64,int> vis, ok;
+map<i64,int> f, ok;
 
+int find(i64 x){
+	if ((x&(x-1))==0){
+		if (f[x]>1){
+			ok[x] = -1;
+			return 1;
+		}
+		return 0;
+	}
+	for (int i=63; i--; ){
+		i64 c = (1LL<<i)-x;
+		if (c>0 && f.find(c)!=f.end()){
+			ok[x] = ok[c] = 1;
+		}
+	}
+
+	return ok[x];
+}
 
 int main(){_
     cin >> n;
     a = vi(n);
     for (int i=0; i<n; ++i){
         cin >> a[i];
-        vis[a[i]]++;
+        f[a[i]]++;
     }
     int ans = 0;
-    sort(all(a));
-    for (int i=0; i<n; ++i){
-         (!find(a[i]));
+    for (i64 x : a){
+		find(x);
     }
-    for (int x : a){
+    for (i64 x : a){
         ans += (ok[x]==0);
     }
     cout << ans << endl;
