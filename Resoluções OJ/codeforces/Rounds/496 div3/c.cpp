@@ -23,38 +23,6 @@ i64 n;
 vi a;
 map<i64,int> vis, ok;
 
-int find(i64 x){
-    if ((x-lsb(x))==0 && x>1){
-        if (vis[x]>1) ok[x] = 1;
-        return vis[x]>1;
-    }
-    for (i64 i=63; i--;){
-        if ((1LL<<i) < x) break;
-        if (x==1 && i==1){
-            if (vis[1]>1) ok[1]=1;
-            return (vis[1]>1);
-                
-        }
-        if (vis.find((1LL<<i)-x) != vis.end()){
-            return 1;
-            ok[x] = 1;
-            ok[(1LL<<i)-x]=1;
-        }
-    }
-    return 0;
-}
-
-int f(i64 x, int k){
-    for (int i=63; i--;){
-        if ((1LL<<i) < x) break;
-        int p = (lower_bound(a.begin(),a.end(),(1LL<<i)-x)-a.begin());
-        if ((p!=k && p<n) || (p==k && p<n-1 && a[p+1]==x)){
-            cout << "p " << p << endl;
-            return 1;
-        }
-    }    
-    return 0;
-}
 
 int main(){_
     cin >> n;
