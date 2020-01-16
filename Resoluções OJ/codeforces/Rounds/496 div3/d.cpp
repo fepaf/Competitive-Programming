@@ -19,21 +19,28 @@
 
 using namespace std;
 
-int n;
-string s;
-int sum;
+int n, ans, d;
+char c;
+int s; 
+int f[3];
+string str;
 
 int main(){_
-    cin >> s;
-    n = s.size();
-    int ans = 0;
-    for (int i=0; i<n; ++i){
-        int x = s[i]-'0';
-        sum = (sum+x)%3;
-        if (sum==0){
-            ++ans;
-            sum=0;
-        }
-    }
+    cin >> str;
+	s = ans = 0;
+	f[0] = 1;;
+	n=sz(str);
+	for (int i=1; i<=n; ++i){
+		d = (str[i-1]-'0')%3;
+		s = (s+d)%3;
+		if ((++f[s])==2){
+			f[0] = f[1] = f[2] = 0;
+			f[s] = 1;
+			++ans;
+		}
+	}
+
+	cout << ans << endl;
+
 	return 0;
 }
