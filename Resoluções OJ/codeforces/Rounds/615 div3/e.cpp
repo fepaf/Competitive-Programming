@@ -20,19 +20,32 @@
 using namespace std;
 
 int n, m;
-int ans;
+int ans, p, part;
 
 int main(){_
     cin >> n >> m;
     int a[n][m];
+    int shift[n];
     for (int i=0;i<n;++i){
         for (int j=0;j<m;++j){
             cin >> a[i][j];
-            if ((a[i][j]-1)%m != j || a[i][j] > n*m){
-                ++ans;
-                a[i][j] = -1;
-            }
+            a[i][j]--;
         }
+        shift[i] = 0;
     }
+    for (int i=0;i<m;++i){
+        for (int j=0;j<n;++j){
+           if ((a[j][i]%m) != i || a[j][i] >= n*m) continue;
+            p = (a[j][i]-i)/m;
+            shift[(j-p+n)%n]++;
+        }
+        part = INT_MAX;
+        for (int j=0; j<n; ++j){
+            part = min(part, n-shift[j]+j);
+            shift[j] = 0;    
+        }
+        ans += part;
+    }
+    cout << ans << endl;
 	return 0;
 }
