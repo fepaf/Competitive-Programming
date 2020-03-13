@@ -20,15 +20,17 @@
 using namespace std;
 
 struct tripla{
-	int x, p, ind;
+	int x, p, ind, l, r;
 };
 
 int cmp(tripla a, tripla b){
-
+	return a.x < b.x;
 }
 
 int n;
 tripla a[MAX];
+int ans[MAX];
+stack<int> pilha;
 
 int main(){_
 	cin >> n;
@@ -36,5 +38,39 @@ int main(){_
 		cin >> a[i].x >> a[i].p;
 		a[i].ind = i;
 	}
+	sort(a+1, a+n+1, cmp);
+	a[n+1] = {INF, INF, -1, 0, 0};
+	for (int i=1; i<=n+1; ++i){
+		while (!pilha.empty() && a[i].p > a[pilha.top()].p){
+			a[pilha.top()].l = i;
+			pilha.pop();
+		}
+		pilha.push(i);
+	}
+	a[0] = {INF, INF, -1, 0, 0};
+	for (int i=n; i>=0; --i){
+		while (!pilha.empty() && a[i].p > a[pilha.top()].p){
+			a[pilha.top()].r = i;
+			pilha.pop();
+		}
+		pilha.push(i);
+	}
+	for (int i=1; i<=n; i++){
+		int l = a[i].l;
+		int r = a[i].r;
+		if (abs(a[l].x - a[i].x) < abs(a[r].x - a[i].x)){
+			ans[a[i].ind] = a[l].ind;
+		}
+		else if (abs(a[l].x - a[i].x) > abs(a[r].x - a[i].x)){
+			ans[a[i].ind] = a[r].ind;
+		}
+		else {
+			ans[a[i].ind] = a[l].p > a[r].p ? a[l].ind : a[r].ind;
+		}
+	}
+	for (int i=1; i<=n; i++){
+		cout << ans[i] << ' ';
+	}
+	cout << endl;
     return 0;
 }
