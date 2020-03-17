@@ -21,7 +21,7 @@ using namespace std;
 
 int n, a[MAX];
 int dp[MAX][1<<MAX];
-int ou;
+int ou, msb;
 
 int main(){_
 	cin >> n;
@@ -30,6 +30,25 @@ int main(){_
 		ou |= a[i];
 		dp[0][a[i]] = 1;
 	}
-
+	for (int i=0; i<MAX; i++){
+		if (ou & (1<<i)){
+			msb = i+1;
+		}
+	}
+	for (int i=1; i<msb; ++i){
+		for (int mask=0; mask<(1<<msb); ++mask){
+			if (mask & (1<<i)){
+				dp[i][mask] = dp[i-1][mask];
+			}
+			else{
+				dp[i][mask] = dp[i-1][mask]+dp[i-1][mask^(1<<i)];
+			}
+		}
+	}
+	i64 ans = 0;
+	for (int i=n; i--;){
+		ans += dp[msb-1][a[i]];
+	}
+	cout << ans << endl; 
     return 0;
 }
