@@ -19,16 +19,16 @@
 
 using namespace std;
 
-struct tripla{
+struct element{
 	int x, p, ind, l, r;
 };
 
-int cmp(tripla a, tripla b){
+int cmp(element a, element b){
 	return a.x < b.x;
 }
 
 int n;
-tripla a[MAX];
+element a[MAX];
 int ans[MAX];
 stack<int> pilha;
 
@@ -47,7 +47,7 @@ int main(){_
 		}
 		pilha.push(i);
 	}
-	a[0] = {INF, INF, -1, 0, 0};
+	a[0] = {-INF, INF, -1, 0, 0};
 	for (int i=n; i>=0; --i){
 		while (!pilha.empty() && a[i].p > a[pilha.top()].p){
 			a[pilha.top()].r = i;
