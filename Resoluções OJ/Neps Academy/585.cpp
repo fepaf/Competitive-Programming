@@ -19,36 +19,37 @@
 
 using namespace std;
 
-int n, a[MAX];
-int dp[MAX][1<<MAX];
-int ou, msb;
+i64 n, a[1<<MAX];
+i64 dp[1<<MAX];
+i64 ou, msb, universo;
+i64 f[1<<MAX];
 
 int main(){_
 	cin >> n;
 	for (int i=n; i--;){
 		cin >> a[i];
+		f[a[i]]++;
 		ou |= a[i];
-		dp[0][a[i]] = 1;
 	}
-	for (int i=0; i<MAX; i++){
+	for (int i=0; i<=MAX; i++){
 		if (ou & (1<<i)){
 			msb = i+1;
 		}
 	}
-	for (int i=1; i<msb; ++i){
+	universo = (1<<msb)-1;
+	for (int i=n; i--;){
+		dp[a[i]] = f[a[i]];
+	}
+	for (int i=0; i<msb; ++i){
 		for (int mask=0; mask<(1<<msb); ++mask){
-			if (mask & (1<<i)){
-				dp[i][mask] = dp[i-1][mask];
-			}
-			else{
-				dp[i][mask] = dp[i-1][mask]+dp[i-1][mask^(1<<i)];
-			}
+			if (mask & (1<<i)) dp[mask] += dp[mask^(1<<i)];
 		}
 	}
-	i64 ans = 0;
+	i64 ans = -f[0];
 	for (int i=n; i--;){
-		ans += dp[msb-1][a[i]];
+		ans += dp[universo^a[i]];
 	}
+	ans >>= 1;
 	cout << ans << endl; 
     return 0;
 }
