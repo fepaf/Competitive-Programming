@@ -20,29 +20,22 @@
 
 using namespace std;
 
-i64 s, dp[6][MAX], n[6], moeda[]={2,5,10,20,50,100}, v;
+int s, dp[MAX], n[6], v[]={2,5,10,20,50,100};
 
-i64 f(i64 idx,i64 sum){
-    
-    if (sum < 0) return 0;
-
-    if (idx == 6) return sum == 0;
-    
-    if (~dp[idx][sum]) return dp[idx][sum];
-
-    dp[idx][sum] = 0;
-    for (i64 i=0; i<=n[idx]; ++i){
-        dp[idx][sum] += f(idx+1, sum-i*moeda[idx]);
-    }
-
-    return dp[idx][sum];
-}
 
 int main(){_
     cin >> s >> n[0] >> n[1] >> n[2] >> n[3] >> n[4] >> n[5];
 
-    memset(dp,-1, sizeof(dp));
 
-    cout << f(0,s) << endl;
+    dp[0] = 1;
+    for (int i=0; i<6; ++i){
+        for (int j=s; j>=v[i]; --j){
+            for (int k=1; k<=n[i] && j>=k*v[i]; ++k){
+                dp[j] += dp[j-k*v[i]];
+            }
+        }
+    }
+
+    cout << dp[s] << endl;
     return 0;
 }
