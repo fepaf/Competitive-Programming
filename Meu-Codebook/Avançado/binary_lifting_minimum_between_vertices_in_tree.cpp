@@ -27,25 +27,6 @@ int n, m, u, v, w, l, timer;
 
 vvii adj;
 
-struct aresta{
-	int u, v, w, sel;
-	aresta () : sel(0) {}
-};
-
-aresta arestas[MAX];
-int pai[MAX];
-
-void init(int n){
-	rep(i, 0, n) pai[i] = i;
-}
-
-int id(int n){ return pai[n] == n ? pai[n] : (pai[n] = id(pai[n]));}
-
-void join(int u, int v){
-	u = id(u), v = id(v);
-	pai[v] = u;
-}
-
 int is_anc(int u, int v){
 	return tin[u] <= tin[v] && tout[v] <= tout[u];
 }
