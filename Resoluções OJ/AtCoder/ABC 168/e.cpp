@@ -20,67 +20,66 @@
 
 using namespace std;
 
-map<ii, i64> dir, liv;
-i64 a, b;
+map<ii, i64> f;
+vii dir;
+i64 n, xz, yz, zz, a, b, ans, fator;
 
-i64 mdc(i64 a, i64 b){
-    return b ? mdc(b, a%b) : a;    
-}
-
-i64 fastpow(i64 b, i64 e){
-    i64 ans = 1LL;
-    for (; e; b=(b*b)%MOD, e>>=1) if (e & 1LL) ans = (ans * b)%MOD;
+i64 fastpow(i64 e){
+    i64 ans = 1LL, b=2LL;
+    for (; e; b=(b*b)%MOD, e>>=1LL) if (e & 1LL) ans = (ans * b)%MOD;
     return ans;
 }
 
-i64 ans, m, n, z, fator;
-
 int main(){_
     cin >> n;
-    for (int i=n; i--;){
-        cin >> a >> b;
-        if (a<0){
-            a = -a;
-            b = -b;
-        }
-        if (!(a || b)){
-            ++z;
-            continue;
-        }
-        m = mdc(abs(a), abs(b));
-        a /= m; b /= m;
-        if (a==0)  b=-1;
-        else if (b==0) a=1;
-        dir[ii(a,b)]++;
-    }
-    for (auto p : dir){
-        int u = p.fs.fs, v = p.fs.sc;
-        if (dir.find(ii(v, -u)) == dir.end() && dir.find(ii(-v, u)) == dir.end()){
-            ++ans;
-        }
-        else {
-            liv[ii(u, v)] = dir[ii(u, v)];
-        }
-    }
-    ans = fastpow(2, ans);
-    for (auto p : liv){
-        int u = p.fs.fs, v = p.fs.sc;
+    dir = vii(n);
+    for (auto &[x, y] : dir){
+        cin >> x >> y;
 
-        if (!p.sc) continue;
-
-        fator = (fastpow(2, p.sc)-1 + MOD)%MOD;
-
-        if (v >= 0){
-            fator = (fator + fastpow(2, liv[ii(v, -u)]) + MOD) % MOD;
-            liv[ii(v, -u)] = 0;
-        }
-        else{
-            fator = (fator + fastpow(2, liv[ii(-v, u)]) + MOD) %MOD;
-            liv[ii(-v, u)] = 0;
+        if (!x) {
+            if (!y){
+                ++zz;
+                continue;
+            }else{
+                ++xz;
+            }
+        }else if (!y){
+            ++yz;
         }
         
-        ans = (ans * fator) % MOD;
+        if (x<0){
+            x = -x; y = -y;
+        }
+
+        i64 mdc = abs(gcd(x, y));
+        x /= mdc; y/=mdc;
+        
+        ++f[{x,y}];
     }
-    cout << (ans -1 + z + MOD)%MOD << endl;
+    
+    ans = 1LL;
+    
+    fator = (fastpow(xz) + fastpow(yz) - 1LL + MOD)%MOD;
+    ans = (ans * fator) % MOD;
+
+    for (auto [p, c] : f){
+        i64 x = p.fs, y=p.sc;
+
+        // cout << x << " " << y << " >> " << c << endl;
+
+        if (!x || !y || !c) continue;
+
+        a = (y > 0 ? y : -y);
+        b = (y > 0 ? -x : x);
+
+        fator = (fastpow(c) + fastpow(f[{a,b}]) - 1LL + MOD) % MOD;
+        ans = (ans * fator) % MOD;
+
+        f[{a,b}] *= !(f[{a,b}]);
+    }
+
+
+    cout << (ans-1LL+zz)%MOD << endl;
+
     return 0;
 }
