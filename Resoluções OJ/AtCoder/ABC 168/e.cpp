@@ -74,7 +74,7 @@ int main(){_
         fator = (pot2[c] + pot2[f[{a,b}]] - 1LL + MOD) % MOD;
         ans = (ans * fator) % MOD;
 
-        f[{a,b}] *= !(f[{a,b}]);
+        f[{a,b}] = 0;
     }
 
 
