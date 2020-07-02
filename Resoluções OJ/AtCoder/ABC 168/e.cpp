@@ -11,7 +11,7 @@
 #define fs first
 #define sc second
 #define eb emplace_back
-#define vi vector<int>
+#define vi vector<i64>
 #define vvi vector<vi>
 #define vii vector<ii>
 #define vvii vector<vii>
@@ -22,16 +22,17 @@ using namespace std;
 
 map<ii, i64> f;
 vii dir;
+vi pot2;
 i64 n, xz, yz, zz, a, b, ans, fator;
-
-i64 fastpow(i64 e){
-    i64 ans = 1LL, b=2LL;
-    for (; e; b=(b*b)%MOD, e>>=1LL) if (e & 1LL) ans = (ans * b)%MOD;
-    return ans;
-}
 
 int main(){_
     cin >> n;
+    
+    pot2.eb(1);
+    for (int i=n; i--;){
+        pot2.eb((2*pot2.back())%MOD);
+    }
+
     dir = vii(n);
     for (auto &[x, y] : dir){
         cin >> x >> y;
@@ -59,27 +60,25 @@ int main(){_
     
     ans = 1LL;
     
-    fator = (fastpow(xz) + fastpow(yz) - 1LL + MOD)%MOD;
+    fator = (pot2[xz] + pot2[yz] - 1LL + MOD)%MOD;
     ans = (ans * fator) % MOD;
 
     for (auto [p, c] : f){
         i64 x = p.fs, y=p.sc;
-
-        // cout << x << " " << y << " >> " << c << endl;
 
         if (!x || !y || !c) continue;
 
         a = (y > 0 ? y : -y);
         b = (y > 0 ? -x : x);
 
-        fator = (fastpow(c) + fastpow(f[{a,b}]) - 1LL + MOD) % MOD;
+        fator = (pot2[c] + pot2[f[{a,b}]] - 1LL + MOD) % MOD;
         ans = (ans * fator) % MOD;
 
         f[{a,b}] *= !(f[{a,b}]);
     }
 
 
-    cout << (ans-1LL+zz)%MOD << endl;
+    cout << (ans-1LL+zz+MOD)%MOD << endl;
 
     return 0;
 }
