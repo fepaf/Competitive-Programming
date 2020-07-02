@@ -20,6 +20,12 @@
 
 using namespace std;
 
+int ler(){
+    int n;
+    scanf("%i",&n);
+    return n;
+}
+
 
 
 int main(){_
