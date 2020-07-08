@@ -17,6 +17,7 @@
 #define vvii vector<vii>
 #define lsb(x) ((x) & (-x))
 #define gcd(x,y) __gcd((x),(y))
+#define W(x) cerr << "\033[31m"<<  #x << " = " << x << "\033[0m" << endl;
 
 using namespace std;
 
