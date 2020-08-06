@@ -21,14 +21,6 @@
 
 using namespace std;
 
-int ler(){
-    int n;
-    scanf("%i",&n);
-    return n;
-}
-
-
-
 int main(){_
     return 0;
 }
