@@ -21,6 +21,8 @@
 
 using namespace std;
 
+int t;
+
 int main(){_
     return 0;
 }
