@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 #define _ ios_base::sync_with_stdio(0); cin.tie(0);
-#define endl '\n'
+// #define endl '\n'
 #define INF 0x3f3f3f3f
 #define MAX (1<<20)
 #define MOD 1000000007
@@ -26,25 +26,26 @@ uri 1308 - guerreiros etruscos nunca jogam xadrez
 */
 
 i64 t(i64 n){
-    return (n*(n+1LL))/2LL;
+    return (n*(n+1))/2;
 }
 
-i64 p(i64 idx, i64 x){
+bool p(i64 idx, i64 x){
     return (t(idx) > x);
 }
 
-i64 x, a[MAX], lo, hi, md, caso;
+i64 x, lo, hi, md, caso;
 
 int main(){_
     for (cin >> caso; caso--;){
         cin >> x;
-        lo = 0LL , hi = 5000000000LL;
+        lo = 0LL , hi = 10000000000LL;
         while (lo < hi){
-            md  = lo + (hi-lo)/2;
+            md = lo + (hi-lo)/2;
+            // W(t(md))
             if (p(md, x)) hi = md;
             else lo = md+1LL;
         }
-        cout << lo-1 << endl;
+        cout << (lo-1) << '\n';
     }
     return 0;
 }
