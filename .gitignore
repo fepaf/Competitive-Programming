@@ -1,7 +1,5 @@
 Resoluções OJ/codeforces/Rounds/642 div3/template.cpp
 Resoluções OJ/codeforces/Rounds/642 div3/1.in
-Resoluções OJ/Neps Academy/a.in
-Resoluções OJ/Neps Academy/b.in
 Resoluções OJ/Neps Academy/*.in
 Resoluções OJ/spoj/in.in
 Resoluções OJ/Neps Academy/erro
@@ -11,14 +9,9 @@ Resoluções OJ/AtCoder/ABC 168/exe
 Resoluções OJ/Neps Academy/neps.cpp
 Resoluções OJ/AtCoder/ABC 168/template.cpp
 Resoluções OJ/AtCoder/ABC 168/*.in
-Resoluções OJ/uri/PARADIGMAS/in.in
-Resoluções OJ/uri/AD-HOC/erro
-Resoluções OJ/uri/AD-HOC/exe
-Resoluções OJ/uri/AD-HOC/in.in
 Resoluções OJ/uri/*.in
 Meu-Codebook/Avançado/in.in
 Resoluções OJ/Neps Academy/342_alt.cpp
-Resoluções OJ/uri/martian_volleyball.cpp
 Tutoria OBI 2020/Aula 1/do
 Tutoria OBI 2020/Aula 1/in.in
 Resoluções OJ/codeforces/Rounds/656 div3/in.in
@@ -30,4 +23,7 @@ Resoluções OJ/Neps Academy/io/*
 .gitignore
 Resoluções OJ/Neps Academy/auxiliar.txt
 Resoluções OJ/Neps Academy/compare.py
+Resoluções OJ/uri/erro
+Resoluções OJ/uri/exe
+Resoluções OJ/uri/martian_volleyball.cpp
 Tutoria OBI 2020/Aula-07/do
