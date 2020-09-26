@@ -28,20 +28,20 @@ int a[MAX];
 
 //  subsequencia do array com maior soma sem elementos consecutivos
 
-int f(int i){// f(i) maior soma  A PARTIR DE i
-    if (i>n) return 0;
+int f(int i){// f(i) maior soma  (considerando) ATÉ indice i
+    if (i <= 0) return 0;
 
     if (memo[i] != UNCALCULED) return memo[i];
 
-    if (i<n){
-        return memo[i] = max(a[i]+f(i+2), f(i+1));
+    if (i>0){
+        return memo[i] = max(a[i]+f(i-2), f(i-1));
     }
 }
 
 /*
 f(i)
-=> max(a[i]+f(i+2), f(i+1)) se i <=n
-=> 0 se i>n
+=> max(a[i]+f(i-2), f(i-1)) se i > 0
+=> 0 se i <= 0
 */
 
 
@@ -55,6 +55,6 @@ int main(){_
         cin >> a[i];
     }
 
-    cout << f(1) << endl;
+    cout << f(n) << endl;
     return 0;
 }

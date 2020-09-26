@@ -2,7 +2,8 @@
 #define _ ios_base::sync_with_stdio(0); cin.tie(0);
 // #define endl '\n'
 #define INF 0x3f3f3f3f
-#define MAX (1<<20)
+#define MAXN (1<<20) // 2**20 
+#define MAXM (1<<10)
 #define MOD 1000000007
 #define i64 long long
 #define all(x) (x).begin() , (x).end()
@@ -18,43 +19,34 @@
 #define lsb(x) ((x) & (-x))
 #define gcd(x,y) __gcd((x),(y))
 #define W(x) cerr << "\033[31m"<<  #x << " = " << x << "\033[0m" << endl;
-#define UNCALCULED -1
+#define UNCALCULED -1000000008
 
 using namespace std;
 
-int memo[MAX];
-int n;
-int a[MAX];
+int memo[MAXN];
+int n, m, a, b;
+// Dado uma barra de tamanhon N, quantas formas de cortar em tamanhos A e B,
+// sem sobras!
 
-//  subsequencia do array com maior soma sem elementos consecutivos
+int f(int n){
+    if (n < 0) return 0;
 
-int f(int i){// f(i) maior soma  A PARTIR DE i
-    if (i>n) return 0;
+    if (n == 0) return 1;
+    
+    if (memo[n] != UNCALCULED) return memo[n];
 
-    if (memo[i] != UNCALCULED) return memo[i];
-
-    if (i<n){
-        return memo[i] = max(a[i]+f(i+2), f(i+1));
-    }
+    return memo[n] = f(n-a)+f(n-b);
 }
-
-/*
-f(i)
-=> max(a[i]+f(i+2), f(i+1)) se i <=n
-=> 0 se i>n
-*/
-
 
 int main(){_
 
-    for (int i=1000002; i--;){
+
+    cin >> n >> a >> b;
+    
+    for (int i=0; i<=n; ++i){
         memo[i] = UNCALCULED;
     }
-    cin >> n;
-    for (int i=1; i<n; ++i){
-        cin >> a[i];
-    }
 
-    cout << f(1) << endl;
+    cout << f(n) << endl;
     return 0;
 }
