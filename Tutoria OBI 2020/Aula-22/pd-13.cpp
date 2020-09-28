@@ -51,7 +51,7 @@ int main(){_
         memo[i] = UNCALCULED;
     }
     cin >> n;
-    for (int i=1; i<n; ++i){
+    for (int i=1; i<=n; ++i){
         cin >> a[i];
     }
 
