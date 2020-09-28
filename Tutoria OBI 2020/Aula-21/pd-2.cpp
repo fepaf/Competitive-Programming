@@ -33,9 +33,11 @@ int f(int i){// f(i) maior soma  A PARTIR DE i
 
     if (memo[i] != UNCALCULED) return memo[i];
 
-    if (i<n){
+    if (i<=n){
         return memo[i] = max(a[i]+f(i+2), f(i+1));
     }
+    
+    return 0;
 }
 
 /*
@@ -51,7 +53,7 @@ int main(){_
         memo[i] = UNCALCULED;
     }
     cin >> n;
-    for (int i=1; i<n; ++i){
+    for (int i=1; i<=n; ++i){
         cin >> a[i];
     }
 
