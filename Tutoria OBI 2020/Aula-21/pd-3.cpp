@@ -33,7 +33,7 @@ int f(int i){
 
     if (memo[i] != UNCALCULED) return memo[i];
 
-    if (i<n){
+    if (i<=n){
         return memo[i] = max(a[i]+f(i+k), f(i+1));
     }
 }
@@ -46,7 +46,7 @@ int main(){_
     }
 
     cin >> n >> k;
-    for (int i=1; i<n; ++i){
+    for (int i=1; i<=n; ++i){
         cin >> a[i];
     }
 

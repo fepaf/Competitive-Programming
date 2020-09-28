@@ -48,7 +48,7 @@ int main(){_
     }
 
     cin >> n;
-    for (int i=1; i<n; ++i){
+    for (int i=1; i<=n; ++i){
         cin >> a[i]; // -10**9 <= a[i] <= 10**9
     }
 

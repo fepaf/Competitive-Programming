@@ -37,7 +37,6 @@ int f(int i){// f(i) maior soma  A PARTIR DE i
         return memo[i] = max(a[i]+f(i+2), f(i+1));
     }
     
-    return 0;
 }
 
 /*
