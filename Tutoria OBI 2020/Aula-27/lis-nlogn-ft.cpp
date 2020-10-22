@@ -42,8 +42,9 @@ int query(int idx){
 
 int a[MAX], m, ans;
 int dp[MAX]; // dp[i] é o tamnho do lis que termina no indice i
-int copia[MAX];
+set<int> values;
 map<int, int> cod;
+int matricula;
 
 int main(){_
     cin >> m;
@@ -51,14 +52,14 @@ int main(){_
     n = 0;
     for (int i=1; i<=m; ++i){
         cin >> a[i];
-        copia[i] = a[i];
+        values.insert(a[i]);
         n = max(a[i], n);
     }
 
-    sort(copia, copia+m);
-
-    for (int i=1; i<=m; ++i){
-        cod[copia[i]] = i;
+    matricula = 1;
+    for (int x : values){
+        cod[x] = matricula;
+        ++matricula;
     }
 
     for (int i=1; i<=m; ++i){
