@@ -59,7 +59,7 @@ int main(){_
 
         i64 ans = 0;
         for (int j=2; j<=m-1; j++){
-            ans += ((j-1-men_e[j])*(men_d[j]));
+            ans += ((j-1-men_e[j])*(men_d[j]*1LL));
         }
 
         cout << ans << endl;
