@@ -23,12 +23,16 @@ struct tvector{//p, q
     }
 };
 
-double distPointVector(tvector p, tvector q, tvector r){
+double distPointToSegment(tvector p, tvector q, tvector r){//distancia do ponto R ao segmento PQ
     if ((r-p)*(q-p)>=0 && (r-q)*(p-q)>=0){
-        return ((r-p)^(q-p))/(~(q-p));
+        return fabs((r-p)^(q-p))/(~(q-p));
     }else {
         return min(~(r-p),~(r-q));
     }
+}
+
+double distPointToLine(tvector p, tvector q, tvector r){//distancia do ponto R à linha deerminada pelos pontos P e Q
+    return fabs((r-p)^(q-p))/(~(q-p));
 }
 
 double InTriangle(tvector a, tvector b, tvector c, tvector p){
@@ -47,7 +51,7 @@ int main(){_
     u = {0, 0};
     v = {3, 3};
     r = {2, 2};
-    cout << distPointVector(u, v, r) << endl;
+    cout << distPointToSegment(u, v, r) << endl;
     cout << r.x << ' ' << r.y << endl;
     cout << (u*v) << endl;
     cout << (u^v) << endl;
