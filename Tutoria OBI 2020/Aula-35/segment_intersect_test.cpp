@@ -38,7 +38,7 @@ int sign(double x){
 }
 
 int inSeg(tvector a, tvector b, tvector m){
-    return (a.x <= m.x && m.x <= b.x) && (a.y <= m.y && m.y <= b.y);
+    return (min(a.x, b.x) <= m.x && m.x <= max(a.x, b.x)) && (min(a.y, b.y) <= m.y && m.y <= max(a.y, b.y));
 }
 
 int intersectSeg(tvector a, tvector b, tvector c, tvector d){
