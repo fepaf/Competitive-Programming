@@ -38,7 +38,7 @@ int main(){_
     for (int i=0;i<n; ++i){
         cin >> p[i];
     }
-    sort(p,p+n);
+    sort(p, p+n);
     for (int i=0,j=n-1; i<=j;++ans){
         if (p[i]+p[j]<=x){
             ++i, --j;
@@ -46,6 +46,6 @@ int main(){_
             --j;
         }
     }
-    cout << ans << endl;
+    cout << ans << endl ;
     return 0;     
 }
