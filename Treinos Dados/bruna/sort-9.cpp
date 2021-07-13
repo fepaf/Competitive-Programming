@@ -26,12 +26,40 @@
 
 using namespace std;
 
-string s;
-int a, b;
+/*
+critérios desempte
+-idade crescente
+-altura decrescente
+-nome "crescente"
+*/
+
+struct tpessoa{
+    string nome;
+    int idade;
+    float altura;
+};
+
+tpessoa pessoas[MAX];
+int n;
+
+int cmp(tpessoa a, tpessoa b){
+    if (a.idade != b.idade) return a.idade < b.idade;
+    if (a.altura != b.altura) return a.altura > b.altura;
+    return a.nome < b.nome;
+}
 
 int main(){_
-    getline(cin, s);
-    cin >> a >> b;
-    cout << s << ' ' << a << ' ' << b << endl;
+    cin >> n;
+    for (int i=0; i<n; ++i){
+        cin >> pessoas[i].nome >> pessoas[i].idade >> pessoas[i].altura;
+    }
+    
+    sort(pessoas, pessoas+n, cmp);
+
+    for (int i=0; i<n; ++i){
+        cout << pessoas[i].nome << ' ';
+        cout << pessoas[i].idade << ' ';
+        cout << pessoas[i].altura << endl;
+    }
     return 0;
 }

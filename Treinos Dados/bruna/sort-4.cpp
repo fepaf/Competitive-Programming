@@ -26,12 +26,23 @@
 
 using namespace std;
 
-string s;
-int a, b;
+int n;
+pair<int, int> a[MAX];
+
+/*Só dois campos, crescente pelo primeiro, crescente pelo segundo*/
 
 int main(){_
-    getline(cin, s);
-    cin >> a >> b;
-    cout << s << ' ' << a << ' ' << b << endl;
+    cin >> n;
+    for (int i=0; i<n; ++i){
+        cin >> a[i].first >> a[i].second;
+    }
+
+    sort(a, a+n); //nao-descrescente 
+
+    for (int i=0; i<n; ++i){
+        cout << a[i].first << ' ' << a[i].second << endl;;
+    }
+    
+    cout << endl;
     return 0;
 }

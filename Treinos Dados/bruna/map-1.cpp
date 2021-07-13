@@ -26,12 +26,25 @@
 
 using namespace std;
 
-string s;
-int a, b;
+/*
+n <=10a5
+0 <= Ai <= 10a9
+*/
+
+int n, ai;
+map<int, int> qtd;
 
 int main(){_
-    getline(cin, s);
-    cin >> a >> b;
-    cout << s << ' ' << a << ' ' << b << endl;
+    cin >> n;
+    for(int i=0; i<n; ++i){
+        cin >> ai;
+        qtd[ai] += 1;
+    }
+
+    cout << qtd.size() << endl;
+    for (auto [x, y] : qtd){
+        // cout << x << ' ' << qtd[x] << endl;
+        cout << x << ' ' << y << endl;
+    }
     return 0;
 }

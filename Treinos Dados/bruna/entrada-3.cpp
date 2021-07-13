@@ -26,14 +26,15 @@
 
 using namespace std;
 
-int t, n;
+string s;
+int a, b, c;
 
 int main(){_
-    
-    while (cin >> n){
-        int ans = n*2;
-        cout << ans << endl;
-    }
-    
+    cin >> a >> b;
+    getline(cin, s);
+    cin >> c;
+    cout << "string:" << s << endl;
+    cout << "numeros: " << a << ' ' << b << endl;
+    cout << "c: " << c << endl;
     return 0;
 }

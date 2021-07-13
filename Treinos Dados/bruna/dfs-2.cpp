@@ -23,8 +23,7 @@ soma o peso das arestas de cada componente conexo
 
 int dfs(int u){
 
-    int ans = 0;
-
+  O
     vis[u] = 1;
 
     //área de lógica do atual

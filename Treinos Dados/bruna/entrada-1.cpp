@@ -26,13 +26,11 @@
 
 using namespace std;
 
-int t, n;
+string s;
+int a, b;
 
 int main(){_
-    //começo do programa
-    cin >> n;
-    int ans = 2*n;
-    cout << ans << endl;
-    //fim do programa
+    cin >> a >> b >> s;
+    cout << s << ' ' << a << ' ' << b << endl;
     return 0;
 }

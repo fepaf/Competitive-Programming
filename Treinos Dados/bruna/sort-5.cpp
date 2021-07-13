@@ -26,12 +26,22 @@
 
 using namespace std;
 
-string s;
-int a, b;
+int n, x;
+vi a;
 
 int main(){_
-    getline(cin, s);
-    cin >> a >> b;
-    cout << s << ' ' << a << ' ' << b << endl;
+    cin >> n;
+    for (int i=0; i<n; ++i){
+        cin >> x;
+        a.eb(x);
+    }
+
+    sort(a.begin(), a.end()); //nao-descrescente 
+
+    for (int i=0; i<n; ++i){
+        cout << a[i] << ' ';
+    }
+    
+    cout << endl;
     return 0;
 }
