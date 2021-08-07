@@ -26,23 +26,17 @@
 
 using namespace std;
 
-i64 t, n, s, ans, a, x, psa;
-map<i64, int> f;
-
-/*
-Problema: Quantidade de subarrays com soma 0
-Abordagem: Processamento on the fly (enquanto lê)
-complexidade: o (N LogN)
-*/
+int n, a[MAX], ans, l, r;
 
 int main(){_
-    cin >> n >> x;
-    f[0] = 1;
-    for (int i=1; i<=n; ++i){
-        cin >> a;
-        psa += a; 
-        ans += f[psa];
-        ++f[psa];
+    cin >> n;
+    for (int i=0; i<n; ++i){
+        cin >> a[i];
+    }
+    cin >> l >> r;
+    ans = 0 ;
+    for (int i=l; i<=r; ++i){
+        ans += a[i];
     }
     cout << ans << endl;
     return 0;
