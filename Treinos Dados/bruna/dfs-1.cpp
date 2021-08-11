@@ -11,9 +11,11 @@ using namespace std;
 int n, m, u, v, w, comp;
 vvi adj;
 vi vis; //vis[u] é 1 se ele foi visitado, 0 se não foi
+vi cor; // cor[u] diz a qual componente U pertence
 
 void dfs(int u){
     vis[u] = 1;
+    cor[u] = comp;
 
     //área de lógica do atual
     cout << comp << " : " << u << endl;
@@ -37,6 +39,8 @@ int main(){_
     }
 
     vis = vi(n+1, 0);
+    vis = vi(n+1, -1);
+
 
     comp = 0;
     for (int u=1; u<=n; ++u){
