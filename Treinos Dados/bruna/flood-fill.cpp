@@ -14,7 +14,7 @@ char a[MAX][MAX];
 int vis[MAX][MAX];// vem tudo inicializado 0, nao visitado;
 int cor[MAX][MAX];
 
-int di[] = {-1,0,1,0}, dj[]={0,1,0,-1};
+int d[] = {-1,0,1,0};
 
 int dentro(int i, int j){
     return ((0<=i) && (i<=n-1) && (0<=j) && (j<=m-1));
@@ -29,13 +29,35 @@ void ff(int i, int j){
     cor[i][j] = comp;
 
     for (int k=0; k<4; ++k){
-        int u = i+di[k], v = j + dj[k];
+        int u = i+d[k], v = j + d[3-k];
 
         if (dentro(u,v) && !vis[u][v] && a[u][v]=='.'){
             ff(u, v);
         }
     }
 }
+
+void ff2(int i, int j){
+    // cout << i << ' ' << j <<  endl;
+
+    vis[i][j] = 1;
+
+    //área da lógica
+    cor[i][j] = comp;
+
+    for (int di=-1; di<=1; ++di){
+        for (int dj=-1; dj<=1; ++dj){
+            if (di==0 && dj==0) continue;
+
+            int u = i+di, v = j + dj;
+
+            if (dentro(u,v) && !vis[u][v] && a[u][v]=='.'){
+                ff(u, v);
+            }
+        }
+    }
+}
+
 
 // vvi vis;
 
