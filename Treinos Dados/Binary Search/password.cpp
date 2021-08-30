@@ -26,28 +26,43 @@
 
 using namespace std;
 
-int n, f, c[MAX], lo, hi, md;
-
-int p(int dias){
-    int moedas = 0;
-    for (int i=n; i--;){
-        moedas += (dias/c[i]);
+vi p_function(string t){
+    int n = sz(t);
+    vi p = vi(n);
+    p[0] = 0;
+    for (int i=1; i<n; i++){
+        p[i] = p[i-1];
+        while (t[i] != t[p[i]] && p[i]) p[i] = p[p[i]-1];
+        p[i] += (t[i] == t[p[i]]);
     }
-    return (f <= moedas);
+    return p;
 }
 
-int main(){_
-    cin >> n >> f;
-    for (int i=n; i--;){
-        cin >> c[i];
-    }
+int n;
+vi a, p;
+string s, t;
 
-    lo = 0; hi = 100000000;
-    while (lo < hi){
-        md = lo + ((hi-lo)>>1);
-        if (p(md)) hi = md;
-        else lo = md + 1;
+
+int main(){_
+    cin >> s;
+    n = sz(s);
+    p = p_function(s);
+
+    for (int i=0; i<p[n-1]; ++i){
+        t += s[i];
     }
-    cout << lo << endl;
+    p = p_function(t+'#'+s);
+
+    int m = sz(t);
+    for (int i=m; i<n+m+1; ++i){
+        if (p[i]==m){
+            i -= (m+1);
+            if (i>0 && i<n-1){
+                cout << t << endl;
+                return 0;
+            }
+        }
+    }
+    cout << "Just a legend" << endl;
     return 0;
 }

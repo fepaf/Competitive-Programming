@@ -26,28 +26,27 @@
 
 using namespace std;
 
-int n, f, c[MAX], lo, hi, md;
+i64 t, n, lo, hi, md;
 
-int p(int dias){
-    int moedas = 0;
-    for (int i=n; i--;){
-        moedas += (dias/c[i]);
-    }
-    return (f <= moedas);
+i64 f(i64 i){
+    return ((i*(i+1LL))>>1);
+}
+
+i64 p(i64 idx, i64 x){
+    return x < f(idx);
 }
 
 int main(){_
-    cin >> n >> f;
-    for (int i=n; i--;){
-        cin >> c[i];
-    }
+    for (cin >> t; t--;){
+        cin >> n;
 
-    lo = 0; hi = 100000000;
-    while (lo < hi){
-        md = lo + ((hi-lo)>>1);
-        if (p(md)) hi = md;
-        else lo = md + 1;
+        lo = 0LL, hi = 10000000000LL;
+        while (lo < hi){
+            md = lo + ((hi - lo)>>1);
+            if (p(md, n)) hi = md;
+            else lo = md + 1;
+        }
+        cout << (lo-1) << endl;
     }
-    cout << lo << endl;
     return 0;
 }

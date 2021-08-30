@@ -26,28 +26,35 @@
 
 using namespace std;
 
-int n, f, c[MAX], lo, hi, md;
+int n, q, lo, hi, md, a[MAX], x, tc;
 
-int p(int dias){
-    int moedas = 0;
-    for (int i=n; i--;){
-        moedas += (dias/c[i]);
-    }
-    return (f <= moedas);
+int p(int md, int x){
+    return x <= a[md];
 }
 
 int main(){_
-    cin >> n >> f;
-    for (int i=n; i--;){
-        cin >> c[i];
-    }
+    while ((cin >> n >> q) && (n || q)){
+        for (int i=0; i<n; ++i){
+            cin >> a[i];
+        }
+        sort(a,a+n);
 
-    lo = 0; hi = 100000000;
-    while (lo < hi){
-        md = lo + ((hi-lo)>>1);
-        if (p(md)) hi = md;
-        else lo = md + 1;
+        cout << "CASE# " << ++tc << ":" << endl;
+        while (q--){
+            cin >> x;
+            lo = 0, hi = n-1;
+            while (lo < hi){
+                md = lo + (hi - lo)/2;
+                // md = lo + ((hi - lo)>>1);
+                if (p(md, x)) hi = md;
+                else lo = md+1;
+            }
+            if (a[lo]==x){ // 
+                cout << x << " found at "<< lo+1 << endl;
+            } else {
+                cout << x << " not found" << endl;
+            }
+        }
     }
-    cout << lo << endl;
     return 0;
 }

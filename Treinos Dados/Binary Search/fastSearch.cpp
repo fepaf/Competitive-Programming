@@ -26,28 +26,33 @@
 
 using namespace std;
 
-int n, f, c[MAX], lo, hi, md;
+int a[MAX], lo, hi, md, n, k, l, r;
 
-int p(int dias){
-    int moedas = 0;
-    for (int i=n; i--;){
-        moedas += (dias/c[i]);
+int p(int idx, int x, int prm){ // prm=0 é lower bound, prm=1 é upper bound
+    if (!prm) return x <= a[idx];
+    return x < a[idx];
+}
+
+int bb(int prm, int x){
+    lo = 0, hi = n;
+    while (lo < hi){
+        md = lo + ((hi - lo)>>1);
+        if (p(md, x, prm)) hi = md;
+        else lo = md + 1;
     }
-    return (f <= moedas);
+    return lo;
 }
 
 int main(){_
-    cin >> n >> f;
+    cin >> n;
     for (int i=n; i--;){
-        cin >> c[i];
+        cin >> a[i];
     }
-
-    lo = 0; hi = 100000000;
-    while (lo < hi){
-        md = lo + ((hi-lo)>>1);
-        if (p(md)) hi = md;
-        else lo = md + 1;
+    sort(a, a+n);
+    for (cin >> k; k--;){
+        cin >> l >> r;
+        cout << (bb(1, r) - bb(0, l)) << " ";
     }
-    cout << lo << endl;
+    cout << endl;
     return 0;
 }

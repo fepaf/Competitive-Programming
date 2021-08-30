@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "random": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp"
+    }
+}

@@ -10,10 +10,10 @@
 #define i64 long long
 #define all(x) (x).begin() , (x).end()
 #define sz(x) (int)(x).size()
-#define ii pair<int, int>
 #define fs first
 #define sc second
 #define eb emplace_back
+#define ii pair<int, int>
 #define vi vector<int>
 #define vvi vector<vi>
 #define vii vector<ii>
@@ -26,28 +26,20 @@
 
 using namespace std;
 
-int n, f, c[MAX], lo, hi, md;
+double lo, hi, md, n;
 
-int p(int dias){
-    int moedas = 0;
-    for (int i=n; i--;){
-        moedas += (dias/c[i]);
-    }
-    return (f <= moedas);
-}
+//Problema: achar raiz cubica de N
+// 0 <= N <= 10a9
+// Imprima com uma precisao de 6 casas
 
 int main(){_
-    cin >> n >> f;
-    for (int i=n; i--;){
-        cin >> c[i];
+    cin >> n;
+    lo = 0, hi = n;
+    for (int i=50; i--;){
+        md = (lo+hi)/2.0;
+        cout << fixed << setprecision(10) << md << endl;
+        if (md*md*md>=n) hi = md;
+        else lo = md;
     }
-
-    lo = 0; hi = 100000000;
-    while (lo < hi){
-        md = lo + ((hi-lo)>>1);
-        if (p(md)) hi = md;
-        else lo = md + 1;
-    }
-    cout << lo << endl;
     return 0;
 }
