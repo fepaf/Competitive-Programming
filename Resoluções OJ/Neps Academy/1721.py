@@ -1,0 +1,6 @@
+n = input()
+a = input().replace(',','').replace(' ','').replace('.','')
+b = input().replace(',','').replace(' ','').replace('.','')
+a = sorted(a)
+b = sorted(b)
+print('S' if a==b else 'N')
