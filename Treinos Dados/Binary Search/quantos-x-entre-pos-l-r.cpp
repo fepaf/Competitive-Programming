@@ -4,7 +4,7 @@
 #define endl '\n'
 #endif
 #define INF 0x3f3f3f3f
-#define MAX (1<<20) 
+#define MAX (1<<20)
 #define OUT MAX
 #define MOD 1000000007
 #define i64 long long
@@ -26,29 +26,27 @@
 
 using namespace std;
 
-int lo, hi, md, a[MAX], n, x;
+/*
+Problema: Dado array A[1..N] , N até 10a5, e A[i] até 10a9, responda Q consultas do tipo "Quantas
+vezes X aparece entre as posições L e R do vetor"
+*/
 
-int p(int idx, int x){
-    return x <= a[idx];
-}
+int a[MAX];
+int l, r, x, q, n, lb, ub;
+map<int, vi> pos;
 
 int main(){_
     cin >> n;
     for (int i=0; i<n; ++i){
         cin >> a[i];
+        pos[ a[i] ].eb(i);
     }
-    cin >> x;
-    lo = 0, hi = n-1;
-    while (lo < hi){
-        md = lo + (hi-lo)/2;
-        W(md)
-        W(a[md])
-        if (p(md, x)) hi = md;
-        else lo = md + 1;
+    cin >> q;
+    while (q--){
+        cin >> l >> r >> x;
+        lb = lower_bound(pos[x].begin(), pos[x].end(), l) - pos[x].begin();
+        ub = upper_bound(pos[x].begin(), pos[x].end(), r) - pos[x].begin();
+        cout << ub-lb << endl;
     }
-    W(lo)
-    W(a[lo])
-    if (a[lo]==x) cout << "primeira ocorrencia de " << x << " na posicao " << lo << endl;
-    else cout << "nao achou" << endl;
     return 0;
 }
