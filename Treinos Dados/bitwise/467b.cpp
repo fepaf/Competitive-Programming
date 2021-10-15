@@ -4,7 +4,7 @@
 #define endl '\n'
 #endif
 #define INF 0x3f3f3f3f
-#define MAX 3002
+#define MAX (1<<20)
 #define OUT MAX
 #define MOD 1000000007
 #define i64 long long
@@ -26,26 +26,17 @@
 
 using namespace std;
 
-i64 n, dp[MAX], p[MAX];
-string s;
+int n, k, m, x[MAX], fedor, ans;
 
 int main(){_
-    cin >> n >> s;
-    dp[1] = 1;
-    for (int t=2; t<=n; ++t){
-        for (int l=1; l<=n; ++l){
-            p[l] = p[l-1] + dp[l];
-        }
-        for (int l=1; l<=t; ++l){
-            dp[l] = (s[t-2]=='<') ? (p[l-1]-p[0]) : (p[n]-p[l-1]);
-            dp[l] = (dp[l]+MOD)%MOD;
-        }
+    cin >> n >> m >> k;
+    for (int i=0; i<m; ++i){
+        cin >> x[i];
     }
-    i64 ans = 0;
-    for (int i=1; i<=n; ++i){
-        ans += dp[i];
+    cin >> fedor;
+    for (int i=0; i<m; ++i){
+        ans += (__builtin_popcount(fedor^x[i]) <= k);
     }
-    ans %= MOD;
     cout << ans << endl;
     return 0;
 }

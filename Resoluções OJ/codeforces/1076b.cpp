@@ -14,7 +14,7 @@
 #define fs first
 #define sc second
 #define eb emplace_back
-#define vi vector<int>
+#define vi vector<i64>
 #define vvi vector<vi>
 #define vii vector<ii>
 #define vvii vector<vii>
@@ -26,28 +26,36 @@
 
 using namespace std;
 
-int n, a[MAX], ans, l, r;
+i64 n, s;
+bitset<MAX> comp;
+vi p;
+vi psa;
 
-// 1+n+1+1+n = 2n+3 -> O(n) =
-// 1 -> o(1)
-
-// O(1) , O(logN) , O(n) , O(n*log N), O(n*n) , O(n*n*n)
-
-// 1s ~ 10a6 ~ 10a7 e 10a8
-
-// O(log N) - > busca binaria, e qualquer coisa que vá digito por digot de um numero
+void crivo(int n){
+    int i;
+    p.eb(2);
+    for (i=3; i*i<=n; i+=2){
+        if (!comp[i]){
+            p.eb(i);
+            for (int j=i*i; j<=n; j+=i){
+                comp[j] = 1;
+            }
+        }
+    }
+    for (int pi=p.back(); pi<=n; pi+=2){
+        if (!comp[pi]){
+            p.eb(pi);
+        }
+    }
+}
 
 int main(){_
-    cin >> n;
-    for (int i=0; i<n; ++i){
-        cin >> a[i];
-    }
-    while (cin >> l >> r){
-        ans = 0 ;
-        for (int i=l; i<=r; ++i){
-            ans += a[i];
-        }
-        cout << ans << endl;
+    crivo(MAX-1);
+    int i=0 ;
+    psa.eb(s);
+    for (i=0; s<10000000000LL; ++i){
+        s+=p[i];
+        psa.eb(s);
     }
     return 0;
 }

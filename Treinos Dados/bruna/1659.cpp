@@ -26,28 +26,33 @@
 
 using namespace std;
 
-int n, a[MAX], ans, l, r;
+int restricoes[402];
+int n, m, x, y, ans;
 
-// 1+n+1+1+n = 2n+3 -> O(n) =
-// 1 -> o(1)
-
-// O(1) , O(logN) , O(n) , O(n*log N), O(n*n) , O(n*n*n)
-
-// 1s ~ 10a6 ~ 10a7 e 10a8
-
-// O(log N) - > busca binaria, e qualquer coisa que vá digito por digot de um numero
+int valido(int mask){
+    for (int i=0; i<m; ++i){
+        if ((restricoes[i] & mask) == restricoes[i]){
+            return 0;
+        }
+    }
+    return 1;
+}
 
 int main(){_
-    cin >> n;
-    for (int i=0; i<n; ++i){
-        cin >> a[i];
+    cin >> n >> m;
+
+    for (int i=0; i<m; ++i){
+        cin >> x >> y;
+        --x , --y;
+        restricoes[i] |= (1<<x); 
+        restricoes[i] |= (1<<y); 
     }
-    while (cin >> l >> r){
-        ans = 0 ;
-        for (int i=l; i<=r; ++i){
-            ans += a[i];
-        }
-        cout << ans << endl;
+
+    ans = 0;
+    for (int mask=1; mask<(1<<n); ++mask){
+        ans += valido(mask);
     }
+
+    cout << ans << endl;
     return 0;
 }

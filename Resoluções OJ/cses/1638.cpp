@@ -4,7 +4,7 @@
 #define endl '\n'
 #endif
 #define INF 0x3f3f3f3f
-#define MAX (1<<20)
+#define MAX (1<<10)
 #define OUT MAX
 #define MOD 1000000007
 #define i64 long long
@@ -26,28 +26,23 @@
 
 using namespace std;
 
-int n, a[MAX], ans, l, r;
-
-// 1+n+1+1+n = 2n+3 -> O(n) =
-// 1 -> o(1)
-
-// O(1) , O(logN) , O(n) , O(n*log N), O(n*n) , O(n*n*n)
-
-// 1s ~ 10a6 ~ 10a7 e 10a8
-
-// O(log N) - > busca binaria, e qualquer coisa que vá digito por digot de um numero
+/*
+Problem: Grid Path 
+Link: https://cses.fi/problemset/task/1638
+*/
+ 
+int n, dp[MAX][MAX];
+char c;
 
 int main(){_
     cin >> n;
-    for (int i=0; i<n; ++i){
-        cin >> a[i];
-    }
-    while (cin >> l >> r){
-        ans = 0 ;
-        for (int i=l; i<=r; ++i){
-            ans += a[i];
+    dp[0][1] = 1;
+    for (int i=1; i<=n; ++i){
+        for (int j=1; j<=n; ++j){
+            cin >> c;
+            dp[i][j] = (c == '.' ? (dp[i-1][j]+dp[i][j-1])%MOD : 0);
         }
-        cout << ans << endl;
     }
+    cout << dp[n][n] << endl;
     return 0;
 }

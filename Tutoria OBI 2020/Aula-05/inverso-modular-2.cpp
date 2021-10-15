@@ -8,6 +8,7 @@
 #define ii pair<int, int>
 #define vi vector<int>
 #define vii vector<ii>
+#define int long long
 #define all(x) (x).begin(), (x).end()
 
 
@@ -24,9 +25,9 @@ int inv_mod(int a, int b){
 int m, r;
 int n;
 
-int main(){_
+signed main(){_
     while (cin >> n >> m){
-        cout << inv_mod(n,m) << endl;
+        cout << (gcd(n,m)==1 ? inv_mod(n,m) : -1) << endl;
     }
     return 0;        
 }

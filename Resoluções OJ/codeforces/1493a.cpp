@@ -3,8 +3,8 @@
 #ifdef ONLINE_JUDGE
 #define endl '\n'
 #endif
-#define INF (1LL<<60)
-#define MAX (10000005)
+#define INF 0x3f3f3f3f
+#define MAX (1<<20)
 #define OUT MAX
 #define MOD 1000000007
 #define i64 long long
@@ -26,25 +26,28 @@
 
 using namespace std;
 
-i64 w, v, n, m, dp[MAX];
+int t, n, k;
+vi a;
+
+void solve(){
+    cin >> n >> k; 
+    a.clear();
+    for (int i=1; i<=k-i; ++i){
+        a.eb(k-i);
+    }
+    for (int i=k+1; i<=n; ++i){
+        a.eb(i);
+    }
+    cout << sz(a) << endl;
+    for (int ai : a){
+        cout << ai << ' ';
+    }
+    cout << endl;
+}
 
 int main(){_
-    cin >> n >> m;
-    dp[0] = 0;
-    for (int j=1; j<MAX; ++j){
-        dp[j] = INF;
-    }
-    for (int i=0; i<n; ++i){
-        cin >> w >> v;
-        for (int j=MAX-1; j>=v; --j){
-            dp[j] = min(dp[j], dp[j-v]+w);
-        }
-    }
-    for (int i=MAX-1; i>=0; --i){
-        if (dp[i]<=m){
-            cout << i << endl;
-            break;
-        }
+    for (cin >> t; t--;){
+        solve();
     }
     return 0;
 }

@@ -26,28 +26,19 @@
 
 using namespace std;
 
-int n, a[MAX], ans, l, r;
-
-// 1+n+1+1+n = 2n+3 -> O(n) =
-// 1 -> o(1)
-
-// O(1) , O(logN) , O(n) , O(n*log N), O(n*n) , O(n*n*n)
-
-// 1s ~ 10a6 ~ 10a7 e 10a8
-
-// O(log N) - > busca binaria, e qualquer coisa que vá digito por digot de um numero
+int t, n, k, lo, hi, md;
 
 int main(){_
-    cin >> n;
-    for (int i=0; i<n; ++i){
-        cin >> a[i];
-    }
-    while (cin >> l >> r){
-        ans = 0 ;
-        for (int i=l; i<=r; ++i){
-            ans += a[i];
+    for (cin >> t; t--;){
+        cin >> n >> k;
+        lo = 0, hi = k+k;
+        while (lo < hi){
+            md = lo + ((hi-lo)>>1);
+            // W(md)
+            if (md - (md/n) >= k) hi = md;
+            else lo = md + 1;
         }
-        cout << ans << endl;
+        cout << lo << endl;
     }
     return 0;
 }

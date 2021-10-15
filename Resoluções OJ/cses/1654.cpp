@@ -26,28 +26,31 @@
 
 using namespace std;
 
-int n, a[MAX], ans, l, r;
-
-// 1+n+1+1+n = 2n+3 -> O(n) =
-// 1 -> o(1)
-
-// O(1) , O(logN) , O(n) , O(n*log N), O(n*n) , O(n*n*n)
-
-// 1s ~ 10a6 ~ 10a7 e 10a8
-
-// O(log N) - > busca binaria, e qualquer coisa que vá digito por digot de um numero
+/*
+Problem: Bit Problem
+Link: https://cses.fi/problemset/task/1654
+*/
+ 
+int n, sub[MAX], sup[MAX], zero[MAX], x[MAX];
 
 int main(){_
     cin >> n;
-    for (int i=0; i<n; ++i){
-        cin >> a[i];
+    int u = (1<<20)-1;
+    for (int i=n; i--;){
+        cin >> x[i];
+        ++sub[x[i]];
+        ++sup[u^x[i]];
     }
-    while (cin >> l >> r){
-        ans = 0 ;
-        for (int i=l; i<=r; ++i){
-            ans += a[i];
+    for (int i=0; i<20; ++i){
+        for (int mask=0; mask<(1<<20); ++mask){
+            if (mask & (1<<i)){
+                sub[mask] += sub[mask^(1<<i)];
+                sup[mask] += sup[mask^(1<<i)];
+            }
         }
-        cout << ans << endl;
+    }
+    for (int i=n; i--;){
+        cout << sub[x[i]] << ' ' << sup[u^x[i]] << ' ' << n-sub[u^x[i]] << endl;
     }
     return 0;
 }
