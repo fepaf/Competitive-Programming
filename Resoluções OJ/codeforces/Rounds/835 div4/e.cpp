@@ -26,28 +26,26 @@
 
 using namespace std;
 
-int t, n, a[MAX], diff, ans;
-vi d;
+i64 t, n, a[MAX], s0[MAX], p1[MAX], ans, diff;
 
 int main(){_
     for (cin >> t; t--;){
         cin >> n;
         ans = 0;
-        //d.eb(-1);
         for (int i=1; i<=n; ++i){
             cin >> a[i];
-            diff = (a[i]-a[i-1]);
-            if (diff){
-                d.eb(diff/abs(diff));
-            }
+            p1[i] = p1[i-1]+a[i];
+            ans += (!a[i])*p1[i];
         }
-        d[0]=-1;
-        d.eb(1);
-        for (int i=1; i<sz(d); ++i){
-            ans += (d[i]-d[i-1]==2);
+        s0[n+1] = 0;
+        for (int i=n; i>=1; --i){
+            s0[i] = s0[i+1] + (!a[i]);
         }
-        d.clear();
-        cout << (ans==1 ? "YES" : "NO") << endl;
+        diff = 0;
+        for (int i=1; i<=n; ++i){
+            diff = max(diff, a[i] ? p1[i-1]-s0[i+1] : s0[i+1]-p1[i-1]);
+        }
+        cout << ans + diff << endl;
     }
     return 0;
 }
