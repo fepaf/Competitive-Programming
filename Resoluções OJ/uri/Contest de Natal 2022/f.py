@@ -1,0 +1,1 @@
+print(' '.join(['azul' if w == 'blue' else ('vermelho' if w == 'red' else w) for w in input().split()]))
