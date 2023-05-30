@@ -26,35 +26,38 @@
 
 using namespace std;
 
-i64 t, n, c, d, a[MAX], lo, hi, sum, s, k;
+i64 n, a[MAX], t, c, d, lo, hi, md, sum;
 
 int main(){_
     for (cin >> t; t--;){
+
         cin >> n >> c >> d;
-        sum = 0;
         for (int i=0; i<n; ++i){
             cin >> a[i];
-            if (i<d) sum += a[i];
         }
-        if (d <=n && sum < c){
-            cout << "Impossible" << endl;
-            continue;
-        }
-        sort(a, a+n, greater<i64>());
-        lo = 0, hi = n;
-        while (lo < hi){
-            k = lo + ((hi-lo)>>1);
 
-            s = 0;
+        sort(a,a+n, greater<int>());
+
+        lo = 0; hi = d+2;
+        while (lo < hi){
+            md = lo + ((hi-lo+1)>>1);
+
+            sum = 0;
             for (int i=0; i<d; ++i){
-                cout << a[i%k] << ' ';
-                s += a[i%k];
+                sum += i % md < n ? a[i % md] : 0;
             }
 
-            if () hi = k;
-            else lo = k + 1
+            if (sum >= c) lo = md;
+            else hi = md - 1;
         }
-        cout << lo << endl;
+
+        if (lo == 0) cout << "Impossible" << endl;
+        else if (lo == d+2) cout << "Infinity" << endl;
+        else cout << lo-1 << endl;
+
+        for (int i=n; i--;){
+            a[i] = 0;
+        }
     }
     return 0;
 }
