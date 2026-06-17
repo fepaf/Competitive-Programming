@@ -1,146 +1,129 @@
-#include<bits/stdc++.h>
-#define _ ios_base::sync_with_stdio(0); cin.tie(0);
-#ifdef ONLINE_JUDGE
-#define endl '\n'
-#endif
-#define INF 0x3f3f3f3f
-#define MAX (1<<20)
-#define OUT MAX
-#define MOD 1000000007
-#define i64 long long
-#define all(x) (x).begin() , (x).end()
-#define sz(x) (int)(x).size()
-#define ii pair<int, int>
-#define fs first
-#define sc second
-#define eb emplace_back
-#define vi vector<int>
-#define vvi vector<vi>
-#define vii vector<ii>
-#define vvii vector<vii>
-#define lsb(x) ((x) & (-x))
-#define gcd(x,y) __gcd((x),(y))
-#define esq(x) (x<<1)
-#define dir(x) ((x<<1)|1)
-#define rep(i,a,b) for (int (i)=(a); (i)<=(b); ++(i))
-#define repi(i,a,b) for (int (i)=(a); (i)>=(b); --(i))
-#define W(x) cerr << "\033[31m"<<  #x << " = " << x << "\033[0m" << endl;
-
+#include <bits/stdc++.h>
 using namespace std;
+ 
+#define fastio ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define MAX 200005
 
 /*
 Problem: Path Queries II
 Link: https://cses.fi/problemset/task/2134
 */
  
-int n, m, u, v, w, l, timer, a[MAX], q, op;
-int pos[MAX], pai[MAX], h[MAX];
-int val[MAX], tam[MAX];
-int st[MAX], lazy[MAX];
-vi g[MAX];
-map<int, map<int, int>> memo;
+int n, q;
+int val[MAX]; 
+vector<int> g[MAX];
+ 
+int parent[MAX], depth[MAX], heavy[MAX], head[MAX], pos[MAX];
+int cur_pos;
+ 
 
-void build(int u, int i, int j){
-    if (i==j){
-        st[u] = a[i];
-        return;
-    }
-    int md = ((i+j)>>1);
-    build(esq(u), i, md);
-    build(dir(u), md+1, j);
-    st[u] = max(st[esq(u)], st[dir(u)]);
+int tree[2 * MAX]; 
+ 
+ 
+void update_seg(int p, int value) {
+    for (tree[p += n] = value; p > 1; p >>= 1)
+        tree[p >> 1] = max(tree[p], tree[p ^ 1]);
 }
-
-int query(int u, int i, int j, int l, int r){
-    if (j<l || r<i){
-        return INT_MIN;
+ 
+int query_seg(int l, int r) {
+    int res = 0;
+    for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
+        if (l & 1) res = max(res, tree[l++]);
+        if (r & 1) res = max(res, tree[--r]);
     }
-    if (l<=i && j<=r){
-        return st[u];
-    }
-    int md = (i+j)>>1;
-    int anse = query(esq(u), i, md, l, r);
-    int ansd = query(dir(u), md+1, j, l, r);
-    return max(anse, ansd);
+    return res;
 }
-
-void update(int u, int i, int j, int idx, int x){
-    if (i==j){
-        st[u] = a[i] = x;
-        return;
+ 
+int dfs_sz(int u) {
+    int size = 1;
+    int max_sz = 0;
+    heavy[u] = -1;
+    
+    // Itera sobre os vizinhos
+    for (int &v : g[u]) {
+        if (v != parent[u]) {
+            parent[v] = u;
+            depth[v] = depth[u] + 1;
+            int child_sz = dfs_sz(v);
+            size += child_sz;
+            if (child_sz > max_sz) {
+                max_sz = child_sz;
+                heavy[u] = v;
+            }
+        }
     }
-    int md = (i+j)>>1;
-    if (idx <= md) update(esq(u), i, md, idx, x);
-    else update(dir(u), md+1, j, idx, x);
-    st[u] = max(st[esq(u)], st[dir(u)]);
+    return size;
 }
-
-void dfs(int u, int p=-1){
-    tam[u] = 1;
-    for (int &v : g[u]){
-        if (v != p){
-            dfs(v, u);
-            tam[u] += tam[v];
-            if (tam[v] > tam[g[u][0]]) swap(v, g[u][0]);
+ 
+void dfs_hld(int u, int h) {
+    head[u] = h;
+    pos[u] = cur_pos++; 
+    update_seg(pos[u], val[u]); 
+ 
+    if (heavy[u] != -1) {
+        dfs_hld(heavy[u], h);
+    }
+    
+    for (int v : g[u]) {
+        if (v != parent[u] && v != heavy[u]) {
+            dfs_hld(v, v); // Começa uma nova cadeia
         }
     }
 }
-
-void build_hld(int u, int p=-1){
-    pos[u] = ++timer;
-    a[pos[u]] = val[u];
-    for (int v : g[u]){
-        if (v != p){
-            pai[v] = u;
-            h[v] = (v == g[u][0] ? h[u] : v);
-            build_hld(v, u);
-        }
+ 
+int query_path(int a, int b) {
+    int res = 0;
+    while (head[a] != head[b]) {
+        if (depth[head[a]] < depth[head[b]]) swap(a, b);
+        res = max(res, query_seg(pos[head[a]], pos[a] + 1)); 
+        a = parent[head[a]];
     }
+    if (depth[a] > depth[b]) swap(a, b);
+    res = max(res, query_seg(pos[a], pos[b] + 1));
+    return res;
 }
-
-int query_path(int a, int b){
-    int ans = INT_MIN;
-    for (; h[a]!=h[b]; a=pai[h[a]]){
-        if (pos[a] < pos[b]) swap(a, b);
-        ans = max(ans, query(1, 1, n, pos[h[a]], pos[a]));
+ 
+void update_val(int u, int x) {
+    val[u] = x;
+    update_seg(pos[u], x);
+}
+ 
+int main() {
+    fastio; 
+    
+    cin >> n >> q;
+    
+    for (int i = 1; i <= n; i++) {
+        cin >> val[i];
     }
-    if (pos[a] < pos[b]) swap(a, b);
-    ans = max(ans, query(1, 1, n, pos[b], pos[a]));
-    return ans;
-}
-
-void update_path(int u, int x){
-    update(1, 1, n, pos[u], x);
-}
-
-void init_hld(int root = 0){
-    dfs(root);
-    timer = 0;
-    h[root] = root;
-    build_hld(root);
-    build(1, 1, n);
-}
-
-int x, y;
-
-int main(){_
-    scanf("%d %d", &n, &q);
-    rep(i, 1, n){
-        scanf("%d", &val[i]);
+    
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
     }
-    rep(i,1,n-1){
-        scanf("%d %d", &u, &v);
-        g[u].eb(v);
-        g[v].eb(u);
-    }   
-    init_hld(1);
-    while(q--){
-        scanf("%d %d %d", &op, &x, &y);
-        if (op==1){
-            update_path(x, y);
+ 
+    cur_pos = 0;
+    parent[1] = 0;
+    depth[1] = 0;
+    dfs_sz(1);
+    dfs_hld(1, 1);
+ 
+    while (q--) {
+        int op;
+        cin >> op;
+        if (op == 1) {
+            int s, x;
+            cin >> s >> x;
+            update_val(s, x);
         } else {
-            printf("%d ", query_path(x, y));
+            int a, b;
+            cin >> a >> b;
+            cout << query_path(a, b) << " ";
         }
     }
+    cout << "\n"; 
+ 
     return 0;
 }
