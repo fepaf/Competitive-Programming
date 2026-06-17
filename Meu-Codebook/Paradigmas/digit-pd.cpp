@@ -28,7 +28,7 @@ vi getDigit(i64 x){
 }
 
 
-i64 solve(int idx, int rest4rito, int sum){
+i64 solve(int idx, int restrito, int sum){
     if (idx==-1) return sum;
 
     if (~dp[idx][restrito][sum]) return dp[idx][restrito][sum];
